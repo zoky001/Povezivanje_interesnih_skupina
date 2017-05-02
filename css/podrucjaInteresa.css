@@ -1,0 +1,487 @@
+#sadrzaj {
+    margin:2%;
+
+
+    float:left;
+    width: 96%;
+    text-align: center;
+
+
+}
+
+.popisPodrucja{
+    background-color: #F5FFDC;
+
+    /*
+        border-style:solid;
+        border-width: 5px;
+        border-color: #C4CCB0;
+        border-radius: 12px;
+    
+        margin:0%;*/
+
+
+
+    width: 100%;
+}
+.karticaDiskusije{
+    
+    background-color: #C6CCB6;
+
+
+    border-style:solid;
+    border-width: 5px;
+    border-color: #4E5247;
+    border-radius: 12px;
+
+    margin:0.5%;
+    float: left;
+
+
+    width: 90%;
+    list-style-type: upper-roman;
+    
+    
+}
+
+.forma{
+    position:relative;
+    left:0px;
+    width:50%;
+    margin-left: 25%;
+    margin-bottom: 2%;
+    
+       background-color: #EFFFC7;
+    
+       
+  border-style:solid;
+    border-width: 5px;
+    border-color: #4E5247;
+    border-radius: 12px;
+   
+    
+    
+}
+
+input,select{
+    border: 3px solid #4E5247;
+    height:20px;
+   width:40%;
+   margin-top: 10px;
+
+
+}
+
+.gumb{
+    
+     color: black;
+    font-size: 20px;
+   
+   position: relative;
+   left:25%;
+   margin-top: 10px;
+    margin-bottom: 10px;
+    width:50%;
+    height:40px;
+       border-style:solid;
+    border-width: 3px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    
+    
+}
+
+.gumb:hover{
+    
+     color: black;
+    font-size: 20px;
+   
+   position: relative;
+   left:25%;
+   margin-top: 10px;
+    margin-bottom: 10px;
+    width:50%;
+    height:40px;
+       border-style:solid;
+    border-width: 3px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    background-color: #6C7F3E;
+    
+    
+}
+
+#btnZatvori{
+           width: 60%;
+        font-weight: bold;
+    height: 50px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #4E5247;
+    border-radius: 15px;
+   
+       
+    background-color: #EFFFC7;
+}
+#btnZatvori:hover{
+           width: 60%;
+        font-weight: bold;
+    height: 50px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #4E5247;
+    border-radius: 15px;
+   background-color: red;
+     
+   
+}
+.btnDiskusije{
+        width: 60%;
+        font-weight: bold;
+    height: 50px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #4E5247;
+    border-radius: 2px;
+    border-top-left-radius: 35px;
+       border-top-right-radius: 35px;
+       background-color: #6C7F3E;
+}
+
+
+
+.btnDiskusije:hover{
+        width: 60%;
+        font-weight: bold;
+    height: 50px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #4E5247;
+    border-radius: 2px;
+    border-top-left-radius: 35px;
+       border-top-right-radius: 35px;
+       background-color: #EFFFC7;
+}
+
+
+.btnDiskusijePrijavljeni{
+        width: 60%;
+       
+        
+        font-weight: bold;
+    height: 50px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #4E5247;
+    border-radius: 10px;
+    
+       
+       background-color: #6C7F3E;
+}
+
+
+
+.btnDiskusijePrijavljeni:hover{
+        width: 50%;
+        font-weight: bold;
+    height: 50px;
+    border-style:solid;
+    border-width: 3px;
+    border-color: #4E5247;
+    border-radius: 2px;
+    border-top-left-radius: 35px;
+       border-top-right-radius: 35px;
+       background-color: #EFFFC7;
+}
+
+#prijava{
+    
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding-top: 20px;
+}
+.header{
+    font-family:arial;
+    padding-top: 15px;
+    padding-bottom: 0px;
+    position: relative;
+    width: 101.3%;
+    clear: both;
+    background: black;
+    margin-left: -0.8%;
+    margin-top: -0.5%
+    
+    
+}
+.btnPrijava{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-top-left-radius: 35px;
+  
+}
+.btnPrijava:hover{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-top-left-radius: 35px;
+    background-color: #EFFFC7;
+  
+}
+
+
+
+.btnNavL{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-left-radius: 35px;
+   
+  
+}
+.btnNavL:hover{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-left-radius: 35px;
+    background-color: #EFFFC7;
+  
+}
+
+.btnNav{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+     margin-left: 0px;
+  
+}
+.btnNav:hover{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    
+    background-color: #EFFFC7;
+  
+}
+
+
+.btn{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+     margin-left: 0px;
+  
+}
+.btn:hover{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    
+    background-color: #EFFFC7;
+  
+}
+
+.btnNavD{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-right-radius: 35px;
+  
+}
+.btnNavD:hover{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-right-radius: 35px;
+    background-color: #EFFFC7;
+  
+}
+
+.btnReg:hover{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-top-right-radius: 35px;
+    background-color: #EFFFC7;
+    
+    
+    
+}
+.btnReg{
+    width: 200px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-top-right-radius: 35px;
+    
+    
+    
+}
+
+
+section{
+    background-color: #EFFFC7;
+    
+       
+  border-style:solid;
+    border-width: 5px;
+    border-color: #4E5247;
+    border-radius: 12px;
+}
+.text-centar{
+    text-align: center;
+    
+    
+}
+.white{
+    color: white;
+    
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 50px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    /*height: 400px;**/
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.karticaPodrucja{
+   background-color: #C6CCB6;
+
+
+    border-style:solid;
+    border-width: 5px;
+    border-color: #4E5247;
+    border-radius: 12px;
+
+    margin:0.5%;
+float: left;
+
+
+    width: 23.269%;
+
+
+}
+.slikaKarticePodrucja{
+    width:95%; 
+    height:150px;
+    border-style:solid;
+    border-width: 5px;
+    border-color: black;
+   /* border-radius: 12px;*/
+    
+}
+.nazivPodrucjaInteresa{
+    background-color: white;
+    color:#777F63;
+    font-size: 18pt; /*velicina */
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+.naslov{
+    background-color: #C6CCB6;
+    color:#777F63;
+    font-size: 25pt; /*velicina */
+    font-weight: bold;
+    text-align: center;
+
+}
+
+@media only screen and (max-width:1024px)
+{
+    .naslov{
+        background-color: #C6CCB6;
+        color:#777F63;
+        font-size: 20px; /*velicina */
+        font-weight: bold;
+        text-align: center;}
+
+}
+
+
+@media only screen and (max-width:480px) 
+{ 
+    .naslov{
+        background-color: #C6CCB6;
+        color:#777F63;
+        font-size: 20px; /*velicina */
+        font-weight: bold;
+        text-align: center;
+
+    }}
+
+@media only screen and (max-width:1024px) and (min-width:480px){
+
+
+
+}
