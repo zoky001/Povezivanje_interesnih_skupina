@@ -33,7 +33,7 @@ and open the template in the editor.
     </head>
     <body  onload = "kreirajDogadjajeNoviProizvod();">
         <!-- Header neprijavljeni -->
-<?php include_once 'header.php';?>
+        <?php include_once 'header.php'; ?>
 
 
 
@@ -44,35 +44,57 @@ and open the template in the editor.
 
         <section id="sadrzaj">
 
-   <div class="naslov">
-                    <h1 >Naziv područja interesa </h1>
+            <div class="naslov">
+                <h1 >Naslov diskusije </h1>
 
-                </div>
-             
-   <div class="naslov" style="background: white">
-                       <button id="btnUspjeh"> Dodaj područje interesa </button> 
-
-                </div>
+            </div>
 
 
-                <ul>
-                    <li class="karticaDiskusije">
-                        <a href="diskusija.php" > <h3 class="nazivPodrucjaInteresa" > naziv </h3></a>
-                    </li>
-                    <li class="karticaDiskusije">
-                        <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-                    </li>
-                    <li class="karticaDiskusije">
-                        <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-                    </li>
-                   
 
-                </ul>
-                
-                  <div class="naslov" style="background: white">
-                       <button id="btnZatvori"> Povratak</button> 
-
-                </div>
+   <div class="temaDiskusije">
+        
+       <img src="slike/avatar.png" alt="Avatar" class="slikaKomntar" style="width:60px">
+        <span class="vrijemekomentara">16 min</span>
+        <h4>Jane Doe</h4>
+        <br>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+       
+        
+        <button type="button" class="">Like</button> 
+       
+        
+        <button type="button" class=""> Comment</button> 
+    </div>  
+            
+            
+               <div class="komentar">
+        
+       <img src="slike/avatar.png" alt="Avatar" class="slikaKomntar" style="width:60px">
+        <span class="vrijemekomentara">16 min</span>
+        <h4>Jane Doe</h4>
+        <br>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+       
+        
+        <button type="button" class="">Like</button> 
+       
+        
+        <button type="button" class=""> Comment</button> 
+    </div>  
+            
+            
+             <div class="noviKomentar">
+                 
+                 
+                 <form>
+                     <textarea style="width:100%"name="opis" rows="4"  placeholder="Upišite komentar"></textarea><br>
+                     <input style="width:100%"class="btn"type="submit" value="Komentiraj">
+                 </form>
+              
+              
+            </div>
 
 
         </section>

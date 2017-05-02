@@ -59,7 +59,7 @@ and open the template in the editor.
 
 
 
-                    <button class="btnNav"> Pregledaj diskusije</button> 
+                    <a href="popis_diskusija.php"> <button class="btnNav"> Pregledaj diskusije</button>  </a>
                     <button class="btnNav"> Prati</button>
 
 
