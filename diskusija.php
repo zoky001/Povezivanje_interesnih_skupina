@@ -40,7 +40,10 @@ and open the template in the editor.
 
 
 
-
+        <div class="tijelo">
+            
+            
+      
 
         <section id="sadrzaj">
 
@@ -99,7 +102,7 @@ and open the template in the editor.
 
         </section>
 
-
+  </div>
         <footer   >
 
             <div class = "footer_left">

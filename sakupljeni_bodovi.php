@@ -14,7 +14,7 @@ and open the template in the editor.
         <meta name="author" content="Zoran Hrnčić">
         <meta name="keywords" content="novi_proizvod">
         <meta name="date" content="07.03.2016">
-        <link rel="stylesheet" media="screen" type="text/css" href="css/zorhrncic.css"/>
+    
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -33,110 +33,113 @@ and open the template in the editor.
     </head>
     <body  onload = "kreirajDogadjajeNoviProizvod();">
         <!-- Header neprijavljeni -->
-<?php include_once 'header.php';?>
+        <?php include_once 'header.php'; ?>
 
 
 
- <div class="tijelo">
-        <section id="sadrzaj">
 
 
-            <div class="naslov">
-                <h1 >  Moja područja interesa </h1>
+
+        <div class="tijelo">
+
+
+            <div class="section">
+
+                <div class="naslov">
+                    <h1>Pregled sakupljenih bodova</h1>
+
+                </div>
+
+
+                <div style="width: 100%;">
+                    <div class="glavniDio">
+
+
+                        <table class="tablica1" >
+                            <caption class="tablica1">Ispis bodova</caption>
+
+                            <thead class="tablica1">
+                                <tr  class="tablica1_zaglavlje ">
+                                    <th >Redni broj</th>
+                                    <th>Vrijeme</th>
+                                    <th>Aktivnost</th>
+                                    <th> Opis aktivnosti</th>
+                                    <th> Broj bodova</th>
+
+
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="tablica1">
+
+
+
+                                <tr class="tablica1_redak1">
+                                    <td>
+                                        1.
+                                    </td>
+
+                                    <td>
+                                        15:15 15.15.2151.
+                                    </td>
+
+                                    <td>
+                                        Najbolji komentar
+                                    </td>
+
+                                    <td>
+                                        Prema broju lajkova
+                                    </td>
+
+                                    <td>
+                                        5
+                                    </td>
+
+                                </tr>
+
+                                <tr class="tablica1_redak1">
+                                    <td>
+                                        1.
+                                    </td>
+
+                                    <td>
+                                        15:15 15.15.2151.
+                                    </td>
+
+                                    <td>
+                                        Najbolji komentar
+                                    </td>
+
+                                    <td>
+                                        Prema broju lajkova
+                                    </td>
+
+                                    <td>
+                                        5
+                                    </td>
+
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>  
+
+                    </div>
+
+                    <div class="desnoOglasi">
+                        <p >Ukupan broj bodova:</p>
+                        
+                        <h1>15</h1>
+
+                    </div>
+                </div>
+
 
             </div>
 
-            <div id =popisPodrucja class = "popisPodrucja">
-
-
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-              <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-             <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-               <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-              <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-             <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-            </div>
-
-
-
-
-        </section>
-     </div>
-
+        </div>
         <footer   >
 
             <div class = "footer_left">

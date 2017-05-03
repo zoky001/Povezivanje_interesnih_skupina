@@ -36,7 +36,7 @@ and open the template in the editor.
 <?php include_once 'header.php';?>
 
 
-
+ <div class="tijelo">
         <section id="sadrzaj">
 
 
@@ -170,7 +170,7 @@ and open the template in the editor.
 
 
         </section>
-
+ </div>
 
         <footer   >
 
