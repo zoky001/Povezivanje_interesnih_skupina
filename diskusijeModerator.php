@@ -16,7 +16,7 @@ and open the template in the editor.
         <meta name="date" content="07.03.2016">
 
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
 
 
 
@@ -25,13 +25,14 @@ and open the template in the editor.
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src ="js/zorhrncic.js"></script>
-        <script type="text/javascript" src ="js/zorhrncic_jquery.js"></script>
+ 
+    
         <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
+        
+        
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
     </head>
-    <body  onload = "kreirajDogadjajeNoviProizvod();">
+    <body >
         <!-- Header neprijavljeni -->
         <?php include_once 'header.php'; ?>
 
@@ -46,7 +47,7 @@ and open the template in the editor.
             <div class="section">
 
                 <div class="naslov">
-                    <h1>Popis kupona za kupnju</h1>
+                    <h1>Pregled diskusija - Moderator</h1>
 
                 </div>
 
@@ -56,10 +57,13 @@ and open the template in the editor.
 
                         <nav style="width:20%;">
 
-                            <h4>Popis kategorija:</h4>
+                            <h4>Diskusije:</h4>
                             <ul>
-                                <li> <a>sport</a></li>
-                                <li> <a>vrtt</a></li>
+                                <li> <a>Uređenje vrta</a></li>
+                                <li> <a>Nove sadnice</a></li>
+                                 <li> <a>Nove sadnice</a></li>
+                                  <li> <a>Nove sadnice</a></li>
+                                   <li> <a>Nove sadnice</a></li>
                             </ul>
 
 
@@ -127,13 +131,91 @@ and open the template in the editor.
 
 
                     </div>
+                    
+                    
+                    
 
                     <div class="desnoOglasi">
-                        <p >Ukupan broj bodova:</p>
-
-                        <h1>15</h1>
+                        <button id="btnNovaDiskusija"class="btnDiskusijaNova"> Dodaj novu diskusiju </button>
 
                     </div>
+                    
+                                    <!-- modal diskusije-->
+        <div id="myModalNovaDiskusija" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                
+
+                <div class="naslov">
+                    <h1 >Nova diskusija </h1>
+
+                </div>
+             
+
+            <form class="formaNovaDiskusija" id="novi_proizvod" method="post" name="novi_proizvod"  
+                  action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate>
+
+                <div id="refreshDiv" style="display:none">
+                    <input class= "gumbRef" id="refreshPage" type="button" value="Osvježi stranicu" >
+                </div>
+                
+                <label  id = "Lnaziv" for="naziv">Naziv diskusije:      
+                    <img  id ="erNaziv" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                </label>
+
+                <input  type="text" id="naziv"  name="naziv" > <br> 
+                
+                  <label  id = "LdanPoc" for="danPoc">Početak diskusije:
+                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                </label>
+                <input type="date" id="danPoc"  name="danPoc" ><br>
+                <label  id = "LdanKraja" for="danKraj">Kraj diskusije:
+                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                </label>
+                <input type="date" id="danKraj"  name="danKraj" ><br>
+
+                <label  id = "Lopis" for="opis">Opis pravila:
+                    <img   id = "erOpis" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                </label>  
+                <textarea class = "opis_area" id= "opis" name="opis" rows="5" cols="100" placeholder="Ovdje unesite opis proizvoda"></textarea><br>
+
+              
+
+               
+
+
+
+
+                <input class="gumb" type="submit" value="Objavi diskusiju">
+
+                <input class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
+
+
+
+            </form>
+
+
+              
+                </ul>
+                
+                  <div class="naslov" style="background: white">
+                       <button id="btnZatvori"> Zatvori pregled</button> 
+
+                </div>
+         
+
+
+
+
+
+
+
+            </div>
+
+        </div>
                 </div>
 
 

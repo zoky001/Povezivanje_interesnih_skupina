@@ -41,6 +41,38 @@ $(document).ready(function () {
 
         $("#myModal").hide();
     });
+    
+    
+    //za prikaz koda na kuponu
+     $(".btnKod").click(function () {
+
+        $("#myModalKod").show();
+    });
+      $(".close").click(function () {
+
+        $("#myModalKod").hide();
+    });
+
+        $("#btnZatvori").click(function () {
+
+        $("#myModalKod").hide();
+    });
+
+
+ //za prikaz nove diskusije
+     $("#btnNovaDiskusija").click(function () {
+
+        $("#myModalNovaDiskusija").show();
+    });
+      $(".close").click(function () {
+
+        $("#myModalNovaDiskusija").hide();
+    });
+
+        $("#btnZatvori").click(function () {
+
+        $("#myModalNovaDiskusija").hide();
+    });
 
 
 

@@ -14,9 +14,9 @@ and open the template in the editor.
         <meta name="author" content="Zoran Hrnčić">
         <meta name="keywords" content="novi_proizvod">
         <meta name="date" content="07.03.2016">
-        <link rel="stylesheet" media="screen" type="text/css" href="css/zorhrncic.css"/>
+  
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 
 
