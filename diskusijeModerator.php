@@ -16,20 +16,23 @@ and open the template in the editor.
         <meta name="date" content="07.03.2016">
 
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
-    
 
 
 
 
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
- 
-    
-        <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
-        
-        
+
+
+        <script src="js/myApp.js"></script>
+
+        <script src="js/myCtrl.js"></script>
+
+
+
+
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
     </head>
     <body >
@@ -41,7 +44,7 @@ and open the template in the editor.
 
 
 
-        <div class="tijelo">
+        <div ng-app="diskusijeModerator" ng-controller="cijelo" class="tijelo"  >
 
 
             <div class="section">
@@ -61,9 +64,9 @@ and open the template in the editor.
                             <ul>
                                 <li> <a>Uređenje vrta</a></li>
                                 <li> <a>Nove sadnice</a></li>
-                                 <li> <a>Nove sadnice</a></li>
-                                  <li> <a>Nove sadnice</a></li>
-                                   <li> <a>Nove sadnice</a></li>
+                                <li> <a>Nove sadnice</a></li>
+                                <li> <a>Nove sadnice</a></li>
+                                <li> <a>Nove sadnice</a></li>
                             </ul>
 
 
@@ -78,46 +81,46 @@ and open the template in the editor.
                                     <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
 
                                     <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona" onclick="window.location.href='kupon.php'"> Pregled </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                       
+                                        <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                        <button class="gumbKupnjaKupona">Buy now </button>
+
                                     </div>
-                                    
-                                    
+
+
                                 </div>
                                 <div class="kupon">
                                     <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
                                     <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
+                                    <div class="ikonaKupi">
                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
+                                        <button class="gumbKupnjaKupona">Buy now </button>
                                     </div>
 
                                 </div>
                                 <div class="kupon">
                                     <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
                                     <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
+                                    <div class="ikonaKupi">
                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
+                                        <button class="gumbKupnjaKupona">Buy now </button>
                                     </div>
 
                                 </div>
                                 <div class="kupon">
                                     <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
                                     <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
+                                    <div class="ikonaKupi">
                                         <button class="gumbKupnjaKupona">Pregled </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
+                                        <button class="gumbKupnjaKupona">Buy now </button>
                                     </div>
 
                                 </div>
                                 <div class="kupon">
                                     <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
                                     <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
+                                    <div class="ikonaKupi">
                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
+                                        <button class="gumbKupnjaKupona">Buy now </button>
                                     </div>
 
                                 </div>
@@ -131,81 +134,71 @@ and open the template in the editor.
 
 
                     </div>
-                    
-                    
-                    
+
+
+
 
                     <div class="desnoOglasi">
-                        <button id="btnNovaDiskusija"class="btnDiskusijaNova"> Dodaj novu diskusiju </button>
+                        <button ng-click="otvoriModal()"id="btnNovaDiskusija"class="btnDiskusijaNova"> Dodaj novu diskusiju </button>
 
                     </div>
-                    
-                                    <!-- modal diskusije-->
-        <div id="myModalNovaDiskusija" class="modal">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
+                    <!-- modal diskusije-->
+                    <div ng-show="prikaziModal" id="myModalNovaDiskusija" style="display: block"class="modal">
 
-                
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span ng-click="zatvoriModal()" class="close">&times;</span>
 
-                <div class="naslov">
-                    <h1 >Nova diskusija </h1>
 
+
+                            <div class="naslov">
+                                <h1 >Nova diskusija </h1>
+
+                            </div>
+   <div ng-show="Diskusija.naziv.$error.email2 || (Diskusija.danKraj.$invalid &&Diskusija.danKraj.$dirty )" class="greskeRegistracija" style=""> 
+
+                 
+
+                    <span ng-show="Diskusija.naziv.$error.email2" > Postojeći  naziv</span>
+
+                    <span ng-show="Diskusija.danKraj.$invalid" > Datum kraja je maji od početnog </span>
                 </div>
-             
 
-            <form class="formaNovaDiskusija" id="novi_proizvod" method="post" name="novi_proizvod"  
-                  action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate>
+                            <form style="clear:both"class="formaNovaDiskusija" id="novi_proizvod" method="post" name="Diskusija"  
+                                  action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate>
 
-                <div id="refreshDiv" style="display:none">
-                    <input class= "gumbRef" id="refreshPage" type="button" value="Osvježi stranicu" >
-                </div>
-                
-                <label  id = "Lnaziv" for="naziv">Naziv diskusije:      
-                    <img  id ="erNaziv" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                </label>
+                                
+                                <input  style="display: none"type="text" id="naziv"  name="IDPodrucja" value="12" > <br> 
+                                
+                                
+                                <div id="refreshDiv" style="display:none">
+                                    <input class= "gumbRef" id="refreshPage" type="button" value="Osvježi stranicu" >
+                                </div>
 
-                <input  type="text" id="naziv"  name="naziv" > <br> 
-                
-                  <label  id = "LdanPoc" for="danPoc">Početak diskusije:
-                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                </label>
-                <input type="date" id="danPoc"  name="danPoc" ><br>
-                <label  id = "LdanKraja" for="danKraj">Kraj diskusije:
-                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                </label>
-                <input type="date" id="danKraj"  name="danKraj" ><br>
+                                <label  id = "Lnaziv" for="naziv">Naziv diskusije:      
+                                    <img  id ="erNaziv" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                                </label>
 
-                <label  id = "Lopis" for="opis">Opis pravila:
-                    <img   id = "erOpis" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                </label>  
-                <textarea class = "opis_area" id= "opis" name="opis" rows="5" cols="100" placeholder="Ovdje unesite opis proizvoda"></textarea><br>
+                                <input  ng-model="nazivDiskusije" type="text" id="naziv"  name="naziv" email2 required > <br> 
+                                
+                                   <span ng-show="Diskusija.naziv.$pending.email2">Provjera postojanja naziva...</span>
 
-              
+                                <label  id = "LdanPoc" for="danPoc">Početak diskusije:
+                                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                                </label>
+                                <input ng-model="pocDiskusije" type="date" id="danPoc"  name="danPoc"  min='{{ today | date :"y-MM-dd"  }}' required >
+                                
+                                <br>
+                                <label  id = "LdanKraja" for="danKraj">Kraj diskusije:
+                                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                                </label>
+                                <input ng-model="krajDiskusije"type="date" id="danKraj"  name="danKraj" min='{{pocDiskusije}}'required=""><br>
 
-               
-
-
-
-
-                <input class="gumb" type="submit" value="Objavi diskusiju">
-
-                <input class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
-
-
-
-            </form>
-
-
-              
-                </ul>
-                
-                  <div class="naslov" style="background: white">
-                       <button id="btnZatvori"> Zatvori pregled</button> 
-
-                </div>
-         
+                                <label  id = "Lopis" for="opis">Opis pravila:
+                                    <img   id = "erOpis" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                                </label>  
+                                <textarea ng-model="opis" required class = "opis_area" id= "opis" name="opis" rows="5" cols="100" placeholder="Ovdje unesite opis proizvoda"></textarea><br>
 
 
 
@@ -213,9 +206,34 @@ and open the template in the editor.
 
 
 
-            </div>
 
-        </div>
+                                <input ng-disabled="Diskusija.naziv.$invalid || Diskusija.danPoc.$invalid || Diskusija.danKraj.$invalid || Diskusija.opis.$invalid" class="gumb" type="submit" value="Objavi diskusiju">
+
+                                <input class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
+
+
+
+                            </form>
+
+
+
+                            </ul>
+
+                            <div class="naslov" style="background: white">
+                                <button ng-click="zatvoriModal()" id="btnZatvori"> Zatvori pregled</button> 
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+
+                    </div>
                 </div>
 
 

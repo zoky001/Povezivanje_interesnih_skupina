@@ -16,22 +16,20 @@ and open the template in the editor.
         <meta name="date" content="07.03.2016">
 
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
-
-
-
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src ="js/zorhrncic.js"></script>
-        <script type="text/javascript" src ="js/zorhrncic_jquery.js"></script>
-        <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
+   
+   
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+        
+        
+        
+        <script src="js/myApp.js"></script>
+         <script src="js/myCtrl.js"></script>
+        
+        
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
     </head>
-    <body  onload = "kreirajDogadjajeNoviProizvod();">
+    <body >
         <!-- Header neprijavljeni -->
         <?php include_once 'header.php'; ?>
 
@@ -40,7 +38,7 @@ and open the template in the editor.
 
 
 
-        <div class="tijelo">
+        <div ng-app="kupon" ng-controller="cijelo" class="tijelo">
 
 
             <div class="section">
@@ -58,14 +56,14 @@ and open the template in the editor.
                       
 
 
-                        <div class="galerijaKupon">
+                        <div ng-init="izvor = 'slike/mljeko.jpg'"   class="galerijaKupon">
 
                             <div >
                                 <button class="gumbKupi" style="width: 100%">Buy now </button>
                             </div>
 
                             <div>
-                                <img src="slike/mljeko.jpg" style="width:100%;margin-bottom:-6px">
+                                <img ng-src="{{izvor}}" style="width:100%;margin-bottom:-6px">
                                 <div>
                                     <p>Living Room</p>
                                 </div>
@@ -73,24 +71,24 @@ and open the template in the editor.
 
                             <div style="text-align: left">
                                 <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                    <img ng-click="PromjeniSliku($event)" ng-model="slika1" src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
 
 
 
                                 </div>
                                 <div class="kupon">
-                                    <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
+                                    <img ng-click="PromjeniSliku($event)" src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
 
 
 
                                 </div>
                                 <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                    <img ng-click="PromjeniSliku($event)" src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
 
 
                                 </div>
                                 <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                    <img ng-click="PromjeniSliku($event)" src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
 
 
                                 </div>

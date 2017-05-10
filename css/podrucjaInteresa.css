@@ -10,6 +10,118 @@
 }
 
 
+/*
+table odd even
+
+
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+*/
+/*angular*/
+
+input.ng-invalid {
+    background-color: red;
+}
+input.ng-valid{
+    
+    background-color: greenyellow;
+  
+}
+input.ng-untouched{
+    
+    background-color: lightblue;
+}
+
+
+/*  greske */
+
+.greskeRegistracija {
+    
+   float: left;
+         position: relative;
+    left:0px;
+   
+    margin:2%;
+    background-color: #FFAC9A;
+    border: 5px;
+     border: 3px solid #D21500;
+     border-radius: 5px;
+     padding:10px;
+    width:18%;
+    
+    
+}
+
+.greske {
+    
+    background: red;
+    color: white;
+    
+    
+}
+
+
+.obavjestRefresh {
+    
+    background: red;
+    color: white;
+    
+    
+    
+}
+
+.greske1 {
+    
+  display:none;
+    color: white;
+    
+    
+}
+.ispravno{
+      background: greenyellow;
+    color: black;
+    
+}
+
+#greske{
+    display:none;
+         position: relative;
+    left:0px;
+    width:50%;
+    margin:2%;
+    background-color: #FFAC9A;
+    border: 5px;
+     border: 3px solid #D21500;
+     border-radius: 5px;
+     padding:10px;
+    
+}
+
+
+
+
+
+/*  kuponi moderator*/
+
+
+.provjraKupona{
+    clear: both;
+    width: 100%;
+    background-color:#DBFF7C;
+     border:  3px solid  blue;
+    
+    
+    
+}
 
 /* tablica pretplatnici*/
 table.tablica1
@@ -405,7 +517,10 @@ hr{
     border-style: inset;
     border-width: 1px;
 } 
-#prijava{
+
+
+
+#prijava1{
     
     border-top: none;
     border-top-left-radius: 0;
@@ -446,13 +561,14 @@ hr{
     
     
 }
-
+/*navigaicija moderator*/
 .navigacijaModerator > ul{
       
-    border-width: 10px;
+   margin-left: 10%;
     border-color: white;
     list-style: none;
-    color: yellow;
+    
+    
 }
 
 .navigacijaModerator > ul > li{
@@ -460,12 +576,12 @@ hr{
      
     border-width: 1px;
     border-color: white;
-    width: 10%;
+    
     height: 20px;
-    min-width: 200px;
+    min-width: 100px;
    float: left;
   
-   background-color: black;
+   background-color:darkblue;
     padding-top: 9px;
     padding-bottom: 0px;
     
@@ -475,9 +591,9 @@ hr{
 
     border-width: 1px;
     border-color: white;
-    width: 10%;
+    
       height: 20px;
-    min-width: 200px;
+    
    float: left;
 
    padding-top: 9px;
@@ -490,6 +606,7 @@ hr{
 
    color: white;
    text-decoration: none;
+   
     
 }
 .navigacijaModerator > ul > li > a:hover{
@@ -506,18 +623,84 @@ hr{
     
    
     width: 100%;
+   
+    margin-top: -0.9%;
+    text-align: center;
+   background-color:darkblue;
+   
+  
+}
+
+/* navigacija admin*/
+
+
+
+.navigacijaAdmin > ul{
+      
+    border-width: 10px;
+    border-color: white;
+    list-style: none;
+    color: yellow;
+}
+
+.navigacijaAdmin > ul > li{
+    border-left-style:solid;  
+     
+    border-width: 1px;
+    border-color: white;
+    width: 10%;
+    height: 20px;
+    min-width: 200px;
+   float: left;
+  
+   background-color:black;
+    padding-top: 9px;
+    padding-bottom: 0px;
+    
+}
+.navigacijaAdmin > ul > li:hover{
+    border-left-style:solid;  
+
+    border-width: 1px;
+    border-color: white;
+    width: 10%;
+      height: 20px;
+    min-width: 200px;
+   float: left;
+
+   padding-top: 9px;
+   
+    
+}
+.navigacijaAdmin > ul > li > a{
+    
+    padding-top: 10px;
+
+   color: white;
+   text-decoration: none;
+    
+}
+.navigacijaAdmin > ul > li > a:hover{
+    
+    padding-top: 10px;
+
+   color:#00ffff;
+   text-decoration: none;
+    
+}
+
+.navigacijaAdmin{
+   
+    
+   
+    width: 100%;
     margin-left: -0.5%;
     margin-top: -0.9%;
     text-align: center;
-    background-color: black;
+   background-color:black;
    
    
 }
-
-
-
-
-
 
 .btnPrijava{
     width: 200px;
@@ -571,7 +754,7 @@ hr{
 
 
 .btnNavL{
-    width: 200px;
+    min-width: 100px;
     height: 50px;
     border-style:solid;
     border-width: 1px;
@@ -582,7 +765,7 @@ hr{
   
 }
 .btnNavL:hover{
-    width: 200px;
+    min-width: 100px;
     height: 50px;
     border-style:solid;
     border-width: 1px;
@@ -594,7 +777,7 @@ hr{
 }
 
 .btnNav{
-    width: 200px;
+    min-width: 100px;
     height: 50px;
     border-style:solid;
     border-width: 1px;
@@ -604,7 +787,7 @@ hr{
   
 }
 .btnNav:hover{
-    width: 200px;
+    min-width: 100px;
     height: 50px;
     border-style:solid;
     border-width: 1px;
@@ -639,7 +822,7 @@ hr{
 }
 
 .btnNavD{
-    width: 200px;
+    width: 100px;
     height: 50px;
     border-style:solid;
     border-width: 1px;
@@ -649,7 +832,7 @@ hr{
   
 }
 .btnNavD:hover{
-    width: 200px;
+    width: 100px;
     height: 50px;
     border-style:solid;
     border-width: 1px;
@@ -1072,8 +1255,17 @@ nav >ul li:hover{
     
     background-color: #C4CCB0;
 }
-
-
+ .navigacijaNormalnoMali{
+        display: none;
+        
+ }
+ 
+  .navigacijaNormalnoMeni{
+        display: none;
+        
+ }
+ 
+ 
 @media only screen and (max-width:1024px)
 {
     .naslov{
@@ -1086,8 +1278,274 @@ nav >ul li:hover{
 }
 
 
-@media only screen and (max-width:480px) 
-{ 
+@media only screen and (max-width:745px) 
+
+
+{ /*navigacija sve*/
+    
+    
+     .navigacijaNormalnoMeni{
+        display: block;
+        
+ }
+    .navigacijaNormalnoMali{
+        display: block;
+        background-color: #4E5247;
+        color: #EFFFC7;
+        
+    }
+    
+    
+.navigacijaNormalnoMeni > ul{
+      clear: both;
+  
+    border-color: white;
+    list-style: none;
+    width: 40%;
+    text-align: left;
+    padding:5px;
+    
+      border-style:solid;  
+     border-radius: 10px;
+    border-width: 2px;
+    border-color: #4E5247;
+       background-color:#6C7F3E;
+    
+}
+
+.navigacijaNormalnoMeni > ul > li{
+    border-bottom-style:solid;  
+     
+    border-width: 1px;
+    border-color: white;
+    
+    
+    width: 95%;
+  
+  
+
+    padding:5px;
+    
+    
+}
+.navigacijaNormalnoMeni > ul > li:hover{
+  
+   
+    
+}
+.navigacijaNormalnoMeni > ul > li > a{
+    
+    padding-top: 10px;
+ padding-left: 10px;
+   color: white;
+   text-decoration: none;
+   
+    
+}
+.navigacijaNormalnoMeni > ul > li > a:hover{
+    
+    padding-top: 10px;
+
+   color:#00ffff;
+   text-decoration: none;
+    
+}
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    .navigacijaNormalno{
+        
+        display: none;
+    }
+    
+.btnNavL{
+   max-width: 20px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-left-radius: 35px;
+   
+  
+}
+.btnNavL:hover{
+    max-width: 20px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-left-radius: 35px;
+    background-color: #EFFFC7;
+  
+}
+
+.btnNav{
+  
+   max-width: 20px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+     margin-left: 0px;
+  
+}
+.btnNav:hover{
+    max-width: 20px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    
+    background-color: #EFFFC7;
+  
+}
+
+
+
+.btnNavD{
+    max-width: 20px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-right-radius: 35px;
+  
+}
+.btnNavD:hover{
+    width: 20px;
+    height: 50px;
+    border-style:solid;
+    border-width: 1px;
+    border-color: #C4CCB0;
+    border-radius: 2px;
+    border-bottom-right-radius: 35px;
+    background-color: #EFFFC7;
+  
+}
+    
+    /*navigaicija moderator*/
+
+
+.navigacijaModerator{
+   
+    
+   display: none;
+    width: 100%;
+   
+    margin-top: -0.9%;
+    text-align: center;
+   background-color:darkblue;
+   
+  
+}
+
+
+
+
+
+
+    /*greske mob*/
+    
+    
+    .karticaPodrucja{
+   background-color: #C6CCB6;
+
+
+    border-style:solid;
+    border-width: 5px;
+    border-color: #4E5247;
+    border-radius: 12px;
+
+    margin:0.5%;
+float: left;
+
+
+    width: 90%;
+
+
+}
+    
+    
+.forma{
+    position:relative;
+    left:0px;
+    width:50%;
+    margin-left: 25%;
+    margin-bottom: 2%;
+    
+       background-color: #EFFFC7;
+    
+       
+  border-style:solid;
+    border-width: 5px;
+    border-color: #4E5247;
+    border-radius: 12px;
+   
+    clear: both;
+    
+}
+    
+    
+    .greskeRegistracija {
+    
+   
+        
+    left:0px;
+   
+    margin:2%;
+    background-color: #FFAC9A;
+    border: 5px;
+     border: 3px solid #D21500;
+     border-radius: 5px;
+     padding:10px;
+    width:80%;
+    
+    
+}
+    
+
     .naslov{
         background-color: #C6CCB6;
         color:#777F63;

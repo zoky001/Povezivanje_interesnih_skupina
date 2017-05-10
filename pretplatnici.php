@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+
+
+<?php 
+
+if (!empty($_POST['submit'])) {
+    
+
+foreach ($_POST['Odabir'] as  $value) {
+    
+    
+    echo $value."<br>";
+
+}
+
+}
+?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -18,16 +34,14 @@ and open the template in the editor.
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
 
 
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
 
 
+        <script src="js/myApp.js"></script>
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-
-        <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
+        <script src="js/myCtrl.js"></script>
 
 
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
@@ -38,7 +52,7 @@ and open the template in the editor.
         <?php include_once 'header.php'; ?>
 
 
-        <div class="tijelo  tijeloAdmin">
+        <div ng-app="pretplatnici" ng-controller="cjelo"  class="tijelo  tijeloAdmin">
 
 
             <section id="sadrzaj" >
@@ -48,77 +62,181 @@ and open the template in the editor.
                     <h3><i>Popis pretplatnika</i> </h3>
                 </div>
                 <div class="asocijativna">
-         <form   method="post" name="saljiObavijest"  
-                              action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate>
-             
-             
-             <input style="width:50%;margin-left:-50%;"class="gumb" type="submit" value="Pošalji obavijest">
-               
-               
-               
-                    <table class="tablica1" >
-                        <caption class="tablica1">Pretplatnici</caption>
-
-                        <thead class="tablica1">
-                            <tr  class="tablica1_zaglavlje sh480">
-                                <th>Odabir</th>
-                                <th >Ime</th>
-                                <th>Prezime</th>
-                                <th> Korisničko ime</th>
-                                <th> Status</th>
-                                <th> Aktivnost</th>
-
-
-                            </tr>
-                        </thead>
-
-                        <tbody class="tablica1">
-
-               
-
-
-                            <tr class="tablica1_redak1" >
-
-                                <td>
-                                    <input type="checkbox" name="Odabir" value = "IdKorisnika">
-                                </td>
-                                <td>
-
-                                    bfbf
-
-                                </td>
-
-                                <td >
-                                    bfbf
-                                </td>
-
-                                <td>
-                                    bfbf
-                                </td>
-
-                                <td>
-                                    <a> fbfb</a>
-                                </td>
-                                <td>
-                                    <a href ="pretplatnici.php">Blokiraj</a>
-                                </td>
-
-
-                            </tr>
+                    
+                    
+                    
+                    <button ng-click="otvoriModal()" id="btnNovaObavijest" class="gumb" style="margin-left: -50%"> Pošalji obavijest korisnicima</button> 
+                    
+              <form id="novi_proizvod" method="post" name="novi_proizvod"  
+                    action="pretplatnici.php" novalidate>
 
 
 
-                        </tbody>
-                    </table>
+                  <div  ng-show="prikaziModal" id="myModalNovaObavijest" style="display: block"class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <span ng-click="zatvoriModal()"class="close">&times;</span>
 
 
-                          
+                              
+                                <div class="naslov">
+                                    <h1 >Nova obavijest </h1>
 
-                         
+                                </div>
+
+                                <div class="formaNovaDiskusija" style="text-align: left"> 
+
+
+                                <div id="refreshDiv" style="display:none">
+                                    <input class= "gumbRef" id="refreshPage" type="button" value="Osvježi stranicu" >
+                                </div>
+
+                                    <label  id = "Lnaziv" for="naziv">Naslov:      
+                                    <img  id ="erNaziv" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                                </label>
+
+                                    <input required ng-model="naslov" type="text" id="naziv"  name="naziv" > <br> 
 
 
 
-                        </form>
+                                <label   id = "Ltekst" for="opis">Text poruke:
+                                    <img   id = "erOpis" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
+                                </label>  
+                                <textarea required ng-model="tekstPoruke"style="margin-left: -50%"class = "opis_area" id= "tekst" name="tekstPoruke" rows="5" cols="100" placeholder="Ovdje unesite tekst poruke"></textarea><br>
+
+
+
+
+
+
+
+
+                                <input class="gumb" name="submit" type="submit" value="Pošalji obavijest korisnicima"> <br>
+
+                                <input class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
+
+
+
+                                </div>
+
+
+
+
+
+                                <div class="naslov" style="background: white">
+                                    <button ng-click="zatvoriModal()" type="button" id="btnZatvori"> Zatvori pregled</button> 
+
+                                </div>
+
+
+
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <table class="tablica1" >
+                            <caption class="tablica1">Pretplatnici</caption>
+
+                            <thead class="tablica1">
+                                <tr  class="tablica1_zaglavlje sh480">
+                                    <th>Odabir</th>
+                                    <th >Ime</th>
+                                    <th>Prezime</th>
+                                    <th> Korisničko ime</th>
+                                    <th> Status</th>
+                                    <th> Aktivnost</th>
+
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="tablica1">
+
+
+
+                                <tr class="tablica1_redak1" >
+
+                                    <td>
+                                        <input type="checkbox" name="Odabir[]" value = "342432423432">
+                                    </td>
+                                    <td>
+
+                                        bfbf
+
+                                    </td>
+
+                                    <td >
+                                        bfbf
+                                    </td>
+
+                                    <td>
+                                        bfbf
+                                    </td>
+
+                                    <td>
+                                        <a> fbfb</a>
+                                    </td>
+                                    <td>
+                                        <a href ="pretplatnici.php">Blokiraj</a>
+                                    </td>
+
+
+                                </tr>
+
+                                <tr class="tablica1_redak1" >
+
+                                    <td>
+                                        <input type="checkbox" name="Odabir[]" value = "342424">
+                                    </td>
+                                    <td>
+
+                                        bfbf
+
+                                    </td>
+
+                                    <td >
+                                        bfbf
+                                    </td>
+
+                                    <td>
+                                        bfbf
+                                    </td>
+
+                                    <td>
+                                        <a> fbfb</a>
+                                    </td>
+                                    <td>
+                                        <a href ="pretplatnici.php">Blokiraj</a>
+                                    </td>
+
+
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+
+                    </form>
 
 
 

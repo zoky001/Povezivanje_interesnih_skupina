@@ -75,6 +75,36 @@ $(document).ready(function () {
     });
 
 
+ //za slanje obavijesti korisnicima
+     $("#btnNovaObavijest").click(function () {
+
+        $("#myModalNovaObavijest").show();
+    });
+      $(".close").click(function () {
+
+        $("#myModalNovaObavijest").hide();
+    });
+
+        $("#btnZatvori").click(function () {
+
+        $("#myModalNovaObavijest").hide();
+    });
+
+ //za dodavanje kupona
+     $(".dodajKupon").click(function () {
+
+        $("#myModalNoviKupon").show();
+    });
+      $(".close").click(function () {
+
+        $("#myModalNoviKupon").hide();
+    });
+
+        $("#btnZatvori").click(function () {
+
+        $("#myModalNoviKupon").hide();
+    });
+
 
    
 

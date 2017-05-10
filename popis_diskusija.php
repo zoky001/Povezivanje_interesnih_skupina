@@ -16,22 +16,37 @@ and open the template in the editor.
         <meta name="date" content="07.03.2016">
         <link rel="stylesheet" media="screen" type="text/css" href="css/zorhrncic.css"/>
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+        
+        
+        
+        <script src="js/myApp.js"></script>
+         <script src="js/myCtrl.js"></script>
+        
+       <!-- 
+        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
-
-
-
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        
+        
         <script type="text/javascript" src ="js/zorhrncic.js"></script>
         <script type="text/javascript" src ="js/zorhrncic_jquery.js"></script>
+        
+        
+        
         <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
+        
+        -->
+        
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
     </head>
-    <body  onload = "kreirajDogadjajeNoviProizvod();">
+    <body>
         <!-- Header neprijavljeni -->
 <?php include_once 'header.php';?>
 
@@ -40,7 +55,7 @@ and open the template in the editor.
 
 
 
- <div class="tijelo">
+        <div ng-app="popisDiskusija" ng-controller="cijelo" class="tijelo">
 
         <section id="sadrzaj">
 
@@ -70,7 +85,7 @@ and open the template in the editor.
                 </ul>
                 
                   <div class="naslov" style="background: white">
-                       <button id="btnZatvori"> Povratak</button> 
+                       <button id="btnZatvori" ng-click="doTheBack()"> Povratak</button> 
 
                 </div>
 

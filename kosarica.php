@@ -16,71 +16,77 @@ and open the template in the editor.
         <meta name="date" content="07.03.2016">
 
         <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
 
 
+        <script src="js/myApp.js"></script>
+
+        <script src="js/myCtrl.js"></script>
 
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    
-
-        <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
     </head>
     <body >
         <!-- Header neprijavljeni -->
         <?php include_once 'header.php'; ?>
-        
-        
-                <!-- modal diskusije-->
-        <div id="myModalKod" class="modal">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
 
-                
 
-                <div class="naslov">
-                    <h1 >Naziv kupona </h1>
+
+
+
+
+
+        <div ng-app="kosarica" ng-controller="cijelo" class="tijelo tijeloAdmin">
+
+            <!-- modal diskusije-->
+            <div ng-show="otvoriModal" style="display: block"id="myModalKod" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span ng-click="zatvoriModalKod()" class="close">&times;</span>
+
+
+
+                    <div class="naslov">
+                        <h1 >{{kodKupona[0].Naziv}} </h1>
+
+                    </div>
+
+
+
+
+                    <ul>
+                        <li class="karticaDiskusije">
+                            <h3 class="nazivPodrucjaInteresa" > <strong> KOD: </strong> {{kodKupona[0].Kod}}</h3>
+                            <h3 class="nazivPodrucjaInteresa" > <strong> Datum kupnje: </strong> {{kodKupona[0].Datum}}</h3>
+                        </li>
+
+
+
+                    </ul>
+
+                    <div class="naslov" style="background: white">
+                        <button ng-click="zatvoriModalKod()" id="btnZatvori"> Zatvori pregled</button> 
+
+                    </div>
+
+
+
+
+
+
+
 
                 </div>
-             
-
-
-
-                <ul>
-                    <li class="karticaDiskusije">
-                        <h3 class="nazivPodrucjaInteresa" > <strong> KOD: </strong> fwferf94vr9er49gt49er4g9er4gr8e</h3>
-                    </li>
-                  
-                   
-
-                </ul>
-                
-                  <div class="naslov" style="background: white">
-                       <button id="btnZatvori"> Zatvori pregled</button> 
-
-                </div>
-         
-
-
-
-
-
-
 
             </div>
+         
 
-        </div>
-
-
-
-
-
-
-        <div class="tijelo tijeloAdmin">
 
 
             <div class="section">
@@ -96,67 +102,130 @@ and open the template in the editor.
 
 
 
-                        <a>  <button class="btnNavL"> Artikli u košarici</button> </a>
-                        <a >  <button class="btnNavD"> Kupljeni artiki</button> </a>
-                        <div class="galerijaKupon kosarica">
-                          
-                          
+                        <a>  <button ng-click="PrikaziKosaricu()" class="btnNavL"> Artikli u košarici</button> </a>
+                        <a >  <button ng-click="PrikaziKupljene()" class="btnNavD"> Kupljeni artiki</button> </a>
+
+
+                        <div ng-show="kupljeniArtikli" class="galerijaKupon kosarica">
+
+
+                            <h3>Kupljeni artikli</h3>
+
+
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Kupon u košarici<br><b>$24.99</b></p>
+
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                    <button ng-click="otovoriModalKod($event)" data-id="2" class="gumbKupnjaKupona"> Prikaži kod</button>
+                                    <!-- data_id je id_kupljenog-->
+                                </div>
+
+
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
+                                <p>kupljeni kupon<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                    <button ng-click="otovoriModalKod($event)" data-id="3" class="gumbKupnjaKupona"> Prikaži kod</button>
+                                </div>
+
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                    <button ng-click="otovoriModalKod($event)" data-id="4" class="gumbKupnjaKupona"> Prikaži kod</button>
+                                </div>
+
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                    <button ng-click="otovoriModalKod($event)" data-id="5" class="gumbKupnjaKupona"> Prikaži kod</button>
+                                </div>
+
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                    <button ng-click="otovoriModalKod($event)" data-id="6" class="gumbKupnjaKupona"> Prikaži kod</button>
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+                        <div ng-show="artikliKosarica"class="galerijaKupon kosarica">
+
+
                             <h3>Artikli u  košarici</h3>
-                            
-                             <div >
+
+                            <div >
                                 <button class="gumbKupi" style="width: 100%">Kupi sve u košarici </button>
                             </div>
-                            
-                             <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Kupon u košarici<br><b>$24.99</b></p>
 
-                                    <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona" onclick="window.location.href='kupon.php'"> Pregled </button>
-                                       <button class="gumbKupnjaKupona"> Kupi</button>
-                                         
-                                    </div>
-                                    
-                                    
-                                </div>
-                                <div class="kupon">
-                                    <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
-                                    <p>kupljeni kupon<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
-                                        <button class="btnKod gumbKupnjaKupona" > Prikaži kod </button>
-                                         <button class="gumbKupnjaKupona"> Pregled kupona</button>
-                                    </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Kupon u košarici<br><b>$24.99</b></p>
+
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
+                                    <button class="gumbKupnjaKupona"> Kupi</button>
 
                                 </div>
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
 
-                                </div>
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Pregled </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
 
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
+                                <p>kupljeni kupon<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="btnKod gumbKupnjaKupona" > Prikaži kod </button>
+                                    <button class="gumbKupnjaKupona"> Pregled kupona</button>
                                 </div>
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                      <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                         <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
 
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona">Buy now </button>
+                                    <button class="gumbKupnjaKupona">Buy now </button>
                                 </div>
-                            
-                          
+
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona">Pregled </button>
+                                    <button class="gumbKupnjaKupona">Buy now </button>
+                                </div>
+
+                            </div>
+                            <div class="kupon">
+                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+                                <div class="ikonaKupi">
+                                    <button class="gumbKupnjaKupona">Buy now </button>
+                                    <button class="gumbKupnjaKupona">Buy now </button>
+                                </div>
+
+                            </div>
+
+
 
 
 
@@ -210,7 +279,7 @@ and open the template in the editor.
             </footer>
 
 
-
+        </div>
 
     </body>
 </html>

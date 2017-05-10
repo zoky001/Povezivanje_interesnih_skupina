@@ -1,25 +1,25 @@
             
 
-<div  class="navigacijaModerator" style=" color: white;margin-left: 0%">
+<div  class="navigacijaAdmin" style=" color: white;margin-left: 0%">
  
      
    
   
                  
-    <ul style="margin-left: -2%; margin-right: -5%;">
+    <ul style="float: none; margin-left: -5%">
                         
                         
         <li style="border-left: none; ">
-                    <a href="diskusijeModerator.php">   Diskusije  </a>
+                    <a href="diskusijeModerator.php">  Područja interesa </a>
                     </li>
                     
                     <li >
                
-                    <a href="pretplatnici.php"> Pretplatnici</a>
+                    <a href="pretplatnici.php"> Kuponi</a>
                     </li> 
          
                     <li>
-                        <a href="kuponiModerator.php">   Kuponi</a>   
+                        <a href="kuponiModerator.php"> Statistika </a>   
                     </li>
                     <li>
                           <a href="dizajn.php">  Dizajn</a>  
@@ -33,9 +33,9 @@
                     </ul>
     
     
-    <ul style="float: right; margin-left: -5%">
+    <ul style="float: right">
         
-        <li style="border-left: none; margin-top: -15px; ">
+        <li style="border-left: none;margin-top: -15px; ">
             <a> Moderator</a>
         </li>
         
@@ -43,7 +43,5 @@
     <br>
 
     <br>
-    
-    
                 </div>
             
