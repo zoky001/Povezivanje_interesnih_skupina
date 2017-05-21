@@ -1,7 +1,7 @@
 <?php
 include_once('postavke.php');
 
-set_error_handler('obradaPogresaka');
+//set_error_handler('obradaPogresaka');
 
 function obradaPogresaka($errno, $errstr, $errfile, $errline, $errcontext) {
   echo "Desila se pogreška kod izvršavanja!<br>";

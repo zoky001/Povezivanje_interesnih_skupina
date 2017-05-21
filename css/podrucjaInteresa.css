@@ -61,13 +61,20 @@ input.ng-untouched{
     
 }
 
-.greske {
+.greske{
     
-    background: red;
-    color: white;
-    
+         position: relative;
+    left:0px;
+    width:50%;
+    margin:2%;
+    background-color: #FFAC9A;
+    border: 5px;
+     border: 3px solid #D21500;
+     border-radius: 5px;
+     padding:10px;
     
 }
+
 
 
 .obavjestRefresh {
@@ -94,6 +101,20 @@ input.ng-untouched{
 
 #greske{
     display:none;
+         position: relative;
+    left:0px;
+    width:50%;
+    margin:2%;
+    background-color: #FFAC9A;
+    border: 5px;
+     border: 3px solid #D21500;
+     border-radius: 5px;
+     padding:10px;
+    
+}
+
+#greske1{
+    
          position: relative;
     left:0px;
     width:50%;
