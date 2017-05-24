@@ -15,7 +15,7 @@ include_once('sesija.class.php');
 include_once('autentikacija.php');
 include_once('provjeraKorisnika.php');
 include_once('dnevnik.php');
-
+include_once('funkcije.php');
 //uključivanje potrebnih datoteka
 
 

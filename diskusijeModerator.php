@@ -1,281 +1,218 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Povezivanje interesnih skupina</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" 
-              content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Novi proizvod">
-        <meta name="author" content="Zoran Hrnčić">
-        <meta name="keywords" content="novi_proizvod">
-        <meta name="date" content="07.03.2016">
+<?php
+if (!isset($_SERVER["HTTPS"]) || strtolower($_SERVER["HTTPS"]) != "on") {
+    $adresa = 'https://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    header("Location: $adresa");
+    exit();
+}
 
-        <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
+include_once 'okvir/aplikacijskiOkvir.php';
+if (provjeraPrijaveKorisnika() == null || !provjeraUlogeBool(MODERATOR)) {
 
-
-
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
-
-
-
-        <script src="js/myApp.js"></script>
-
-        <script src="js/myCtrl.js"></script>
-
-
-
-
-        <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
-    </head>
-    <body >
+    header("Location: neprijavljeni.php");
+}
+dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
+?>
         <!-- Header neprijavljeni -->
-        <?php include_once 'header.php'; ?>
+        
+        
+<?php $naslov = "Diskusije - MODERATOR";
+include_once 'header.php';
+updateDiskusije();
+novaDiskusija();
+$smarty->assign ('vrijeme',date('Y-m-d', vrijeme_sustava())); 
 
 
 
 
 
 
-        <div ng-app="diskusijeModerator" ng-controller="cijelo" class="tijelo"  >
 
 
-            <div class="section">
 
-                <div class="naslov">
-                    <h1>Pregled diskusija - Moderator</h1>
 
-                </div>
 
 
-                <div style="width: 100%;">
-                    <div class="glavniDio">
+$sql = "SELECT * FROM `moderatori_podrucja` mp
+LEFT JOIN  diskusije d ON mp.`ID_podrucja` = d.ID_podrucja_interesa
+WHERE mp.`ID_moderatora` = :IDmoderatora";
+   
+$ispisTema = array();
+try {
+    $stmt = $dbc->prepare($sql);
 
-                        <nav style="width:20%;">
+    
+     $stmt->bindParam(':IDmoderatora', korisnikID(), PDO::PARAM_INT);
+     
+     
+     
+    $stmt->execute();
 
-                            <h4>Diskusije:</h4>
-                            <ul>
-                                <li> <a>Uređenje vrta</a></li>
-                                <li> <a>Nove sadnice</a></li>
-                                <li> <a>Nove sadnice</a></li>
-                                <li> <a>Nove sadnice</a></li>
-                                <li> <a>Nove sadnice</a></li>
-                            </ul>
 
+    while ($row = $stmt->fetch()) {
 
-                        </nav>
-
-                        <div class="galerija">
-                            <h3 style="text-align: left; margin-left: 20px;">Sport  </h3> 
-
-                            <div style="text-align: left">
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-
-                                    <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-
-                                    </div>
-
-
-                                </div>
-                                <div class="kupon">
-                                    <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                    <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
-
-                                </div>
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                    <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
-
-                                </div>
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                    <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Pregled </button>
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
-
-                                </div>
-                                <div class="kupon">
-                                    <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                    <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                    <div class="ikonaKupi">
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                        <button class="gumbKupnjaKupona">Buy now </button>
-                                    </div>
-
-                                </div>
-
-
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-
-
-
-                    <div class="desnoOglasi">
-                        <button ng-click="otvoriModal()"id="btnNovaDiskusija"class="btnDiskusijaNova"> Dodaj novu diskusiju </button>
-
-                    </div>
-
-                    <!-- modal diskusije-->
-                    <div ng-show="prikaziModal" id="myModalNovaDiskusija" style="display: block"class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <span ng-click="zatvoriModal()" class="close">&times;</span>
-
-
-
-                            <div class="naslov">
-                                <h1 >Nova diskusija </h1>
-
-                            </div>
-   <div ng-show="Diskusija.naziv.$error.email2 || (Diskusija.danKraj.$invalid &&Diskusija.danKraj.$dirty )" class="greskeRegistracija" style=""> 
-
-                 
-
-                    <span ng-show="Diskusija.naziv.$error.email2" > Postojeći  naziv</span>
-
-                    <span ng-show="Diskusija.danKraj.$invalid" > Datum kraja je maji od početnog </span>
-                </div>
-
-                            <form style="clear:both"class="formaNovaDiskusija" id="novi_proizvod" method="post" name="Diskusija"  
-                                  action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php" novalidate>
-
-                                
-                                <input  style="display: none"type="text" id="naziv"  name="IDPodrucja" value="12" > <br> 
-                                
-                                
-                                <div id="refreshDiv" style="display:none">
-                                    <input class= "gumbRef" id="refreshPage" type="button" value="Osvježi stranicu" >
-                                </div>
-
-                                <label  id = "Lnaziv" for="naziv">Naziv diskusije:      
-                                    <img  id ="erNaziv" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                                </label>
-
-                                <input  ng-model="nazivDiskusije" type="text" id="naziv"  name="naziv" email2 required > <br> 
-                                
-                                   <span ng-show="Diskusija.naziv.$pending.email2">Provjera postojanja naziva...</span>
-
-                                <label  id = "LdanPoc" for="danPoc">Početak diskusije:
-                                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                                </label>
-                                <input ng-model="pocDiskusije" type="date" id="danPoc"  name="danPoc"  min='{{ today | date :"y-MM-dd"  }}' required >
-                                
-                                <br>
-                                <label  id = "LdanKraja" for="danKraj">Kraj diskusije:
-                                    <img  id="erDanPro" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                                </label>
-                                <input ng-model="krajDiskusije"type="date" id="danKraj"  name="danKraj" min='{{pocDiskusije}}'required=""><br>
-
-                                <label  id = "Lopis" for="opis">Opis pravila:
-                                    <img   id = "erOpis" class = "greska_usklicnik"  src="slike/exclamation.jpg"  alt="exclamation">
-                                </label>  
-                                <textarea ng-model="opis" required class = "opis_area" id= "opis" name="opis" rows="5" cols="100" placeholder="Ovdje unesite opis proizvoda"></textarea><br>
-
-
-
-
-
-
-
-
-                                <input ng-disabled="Diskusija.naziv.$invalid || Diskusija.danPoc.$invalid || Diskusija.danKraj.$invalid || Diskusija.opis.$invalid" class="gumb" type="submit" value="Objavi diskusiju">
-
-                                <input class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
-
-
-
-                            </form>
-
-
-
-                            </ul>
-
-                            <div class="naslov" style="background: white">
-                                <button ng-click="zatvoriModal()" id="btnZatvori"> Zatvori pregled</button> 
-
-                            </div>
-
-
-
-
-
-
-
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-        <footer   >
-
-            <div class = "footer_left">
-                <figure  >
-                    <a href="https://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2016/zadaca_03/zorhrncic/novi_proizvod.html">
-                        <img src="slike/HTML5.png" width = "150" height="150" alt="HTML5">
-
-                    </a>
-                    <figcaption>HTML</figcaption>
-                </figure> 
-            </div>
-
-
-            <div class = "footer_left">
-                <p class = " vrijeme_izrade"><strong>Vrijeme potrebno za izradu:</strong> 2.5 sati </p>
-
-            </div>
-
-            <div class = "footer_left">
-                <figure >
-                    <a  href="https://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2016/zadaca_03/zorhrncic/css/zorhrncic.css"><img   src="slike/CSS3.png" width = "150" height="150" alt="CSS3"></a> 
-                    <figcaption>CSS3</figcaption>
-                </figure> 
-            </div>
-
-            <div style="width: 100%; text-align: center">
-                <address> <strong> Kontakt: </strong><a href = "mailto:zorhrncic@foi.hr"> Zoran Hrnčić</a></address>
-                <p>Izdario 18.03.2016</p>
-
-                <p> <small>&copy;   18.03.2016 Z. Hrncic</small></p>
-            </div>
-
-        </footer>
-
-
-
-
-    </body>
-</html>
+        array_push($ispisTema, $row);
+    }
+    
+    $smarty->assign('ispisTema',  $ispisTema);
+    
+    
+ 
+
+
+
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
+
+
+     
+    if (!empty($_GET['IDdiskusije'])) {
+        
+        $sql = "SELECT * FROM `diskusije` WHERE `ID_diskusije`  = :IDdiskusije";
+   
+
+try {
+    $stmt = $dbc->prepare($sql);
+
+    
+     $stmt->bindParam(':IDdiskusije',$_GET['IDdiskusije'], PDO::PARAM_INT);
+     
+     
+     
+    $stmt->execute();
+
+
+    $tema = $stmt->fetch();
+
+        
+    
+    
+    $smarty->assign('Tema',  $tema);
+    
+    
+ 
+
+
+
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
+        
+        
+    }
+
+function updateDiskusije(){
+    global $dbc;
+    if (!empty($_POST['izmjenaDiskusije'])) {
+      //  echo '<br><br><br> unutar if>br>';
+$sql = "UPDATE `diskusije` SET 
+`Naziv`=:Naziv,
+`Datum_pocetka`=:datPoc,
+`Datum_zavrsetka`=:datKraj,
+`Opis_pravila`=:Opis,
+`ID_moderatora`=:IDmoderatora 
+WHERE 
+`ID_diskusije`=:IDdiskusije";
+
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+            $stmt->bindParam(':Naziv', $_POST['naziv'], PDO::PARAM_STR);
+            
+            $stmt->bindParam(':Opis', $_POST['opis'], PDO::PARAM_STR);
+            
+            $stmt->bindParam(':datPoc', $_POST['danPoc'], PDO::PARAM_STR);
+            
+            $stmt->bindParam(':datKraj', $_POST['danKraj'], PDO::PARAM_STR);
+             
+        $stmt->bindParam(':IDmoderatora', korisnikID() , PDO::PARAM_INT);
+
+         $stmt->bindParam(':IDdiskusije', $_POST['IDdiskusije'], PDO::PARAM_INT);
+         if ($stmt->execute()) {
+             dnevnik_zapis(24);
+             //promjena diskusije
+         } 
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        } 
+        
+        
+        
+        
+    }
+    
+    
+}
+function novaDiskusija(){
+    global $dbc;
+    if (!empty($_POST['novaDiskusija'])) {
+        //echo '<br><br><br> unutar if>br>';
+$sql = "INSERT INTO `diskusije`
+(`ID_diskusije`, `Naziv`, `Datum_pocetka`, `Datum_zavrsetka`, `Opis_pravila`, `ID_podrucja_interesa`, `ID_moderatora`) 
+VALUES 
+(null ,:Naziv,:datPoc,:datKraj,:Opis,:IDpodrucja,:IDmoderatora)";
+
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+            $stmt->bindParam(':Naziv', $_POST['naziv'], PDO::PARAM_STR);
+            
+            $stmt->bindParam(':Opis', $_POST['opis'], PDO::PARAM_STR);
+            
+            $stmt->bindParam(':datPoc', $_POST['danPoc'], PDO::PARAM_STR);
+            
+            $stmt->bindParam(':datKraj', $_POST['danKraj'], PDO::PARAM_STR);
+             
+        $stmt->bindParam(':IDmoderatora', korisnikID() , PDO::PARAM_INT);
+
+         $stmt->bindParam(':IDpodrucja', $_POST['IDPodrucja'], PDO::PARAM_INT);
+         if ($stmt->execute()) {
+            dnevnik_zapis(25);
+             //nova diskusije
+             
+         } 
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        } 
+        
+        
+        
+        
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+
+   echo '<br><br><br>';
+$smarty->display('predlosci/diskusijeModerator.tpl');
+include_once 'footer.php';?>

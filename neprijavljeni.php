@@ -1,10 +1,18 @@
+<?php
+if (!isset($_SERVER["HTTPS"]) || strtolower($_SERVER["HTTPS"]) != "on") {
+    $adresa = 'https://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    header("Location: $adresa");
+    exit();
+}
+?>
+
 <?php 
 
 include_once 'okvir/aplikacijskiOkvir.php';
 
 if (provjeraPrijaveKorisnika() != null) {
 
-    header("Location: podrucja_iteresa.php");
+    header("Location: podrucja_interesa.php");
 }
 
 
@@ -26,7 +34,7 @@ if (empty($_COOKIE[$nazivCock])) {
     $vrijedi_do = $id + 259200; //259200 sec je 3 dana
 
     setcookie($nazivCock, $id, $vrijedi_do);
-    
+    dnevnik_zapis(17);//prihvaceni uvjeti
        $coockieNeVrijedi = false;
        
    }
@@ -75,6 +83,7 @@ if (empty($_COOKIE[$nazivCock])) {
     $vrijedi_do = $id + 259200; //259200 sec je 3 dana
 
     setcookie($nazivCock, $id, $vrijedi_do);
+    dnevnik_zapis(17);//prihvaceni uvjeti
     
        $coockieNeVrijedi = false;
        
@@ -92,12 +101,60 @@ if (empty($_COOKIE[$nazivCock])) {
     }
     
     
+    $ispisPodrucja= array();
+    
+       $sql = "SELECT * FROM `podrucja_interesa` ";
 
+
+    try {
+        $stmt = $dbc->prepare($sql);
+
+
+        $stmt->execute();
+
+        
+
+  
+   while ($row = $stmt->fetch()) {
+
+        array_push($ispisPodrucja, $row);
+    }
+        
+
+
+
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+    }
+    
+    
+    
+    
+    
+ $smarty->assign('ispisPodrucja',  $ispisPodrucja);
 
 
     $smarty->assign('coockieNeVrijediIF',  $coockieNeVrijedi);
 
-
+    if (isset($_GET['prijava']) && $_GET['prijava'] == '1') {
+     $smarty->assign('otvoriPrijavu', TRUE);
+}
+    
+    
+    $smarty ->assign ('kor1','Obicna');
+    $smarty ->assign ('loz1','ObicnA12');
+    
+        
+          $smarty ->assign ('kor2','Admin');
+    $smarty ->assign ('loz2','asAS12');
+    
+     $smarty ->assign ('kor3','Moderator');
+    $smarty ->assign ('loz3','asAS12');
+    
+         
+          $smarty ->assign ('kor4','DvaKoraka');
+    $smarty ->assign ('loz4','DvaKoraka12');  
 
 $smarty->display('predlosci/neprijavljeni.tpl');
 include_once 'footer.php';?>

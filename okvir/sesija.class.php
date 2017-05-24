@@ -81,6 +81,7 @@ class Sesija {
         if (session_id() != "") {
             session_unset();
             session_destroy();
+          
         }
     }
 

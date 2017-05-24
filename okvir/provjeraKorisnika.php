@@ -42,6 +42,37 @@ function provjeraKorisnika() {
     return $korisnik;
 }
 
+function provjeraUlogeBool($uloga) {
+    
+    $korisnik = Sesija::dajKorisnika() ? Sesija::dajKorisnika() : "";
+    if ($korisnik->get_vrsta() == $uloga) {
+        return true;
+        
+    }
+ else {
+    return false;    
+    }
+}
+
+
+
+
+
+function korisnikUsername(){  
+    $korisnik = Sesija::dajKorisnika() ? Sesija::dajKorisnika() : "";
+  
+    
+    return $korisnik->get_kor_ime(); 
+    }
+    
+    
+function korisnikID(){  
+    $korisnik = Sesija::dajKorisnika() ? Sesija::dajKorisnika() : "";
+  
+    
+    return $korisnik->get_ID(); 
+    }
+
 function provjeraUloge($uloga) {
     $korisnik = Sesija::dajKorisnika() ? Sesija::dajKorisnika() : "";
     if ($korisnik == "" || $korisnik->get_status() != 1 || $korisnik->get_vrsta() != $uloga) {

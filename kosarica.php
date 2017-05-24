@@ -1,285 +1,387 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Povezivanje interesnih skupina</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" 
-              content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Novi proizvod">
-        <meta name="author" content="Zoran Hrnčić">
-        <meta name="keywords" content="novi_proizvod">
-        <meta name="date" content="07.03.2016">
+<?php
 
-        <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
+if (!isset($_SERVER["HTTPS"]) || strtolower($_SERVER["HTTPS"]) != "on") {
+    $adresa = 'https://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    header("Location: $adresa");
+    exit();
+}
 
+include_once 'okvir/aplikacijskiOkvir.php';
+if (provjeraPrijaveKorisnika() == null) {
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    header("Location: neprijavljeni.php");
+}
+dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
 
+dodajUKosaricu();
 
 
-        <script src="js/myApp.js"></script>
+$naslov = "Košarica";
+include_once 'header.php';
+$raspolozivoBodova = brojBodova();
+kupi();
 
-        <script src="js/myCtrl.js"></script>
+/* svi kuponi */
 
+$sql = "SELECT * FROM `kosarica` ko 
+LEFT JOIN kuponi_clanstva kc ON  ko.`ID_kupona`  = kc. `ID_kupona`  
+LEFT JOIN kuponi_podrucja kp ON kp.`ID_kupona` = ko.`ID_kupona` 
+LEFT JOIN podrucja_interesa pi ON  pi.ID_podrucja =ko.ID_podrucja
+WHERE  ko.`Potvrda_kupovine` = 0  and kp.ID_podrucja = ko.ID_podrucja  and ko.`ID_korisnika` = :IDkorisnika";
 
-        <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
-    </head>
-    <body >
-        <!-- Header neprijavljeni -->
-        <?php include_once 'header.php'; ?>
 
+try {
+    $ispis = array();
 
 
+    $stmt = $dbc->prepare($sql);
 
+    $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
 
+    $stmt->execute();
 
 
 
-        <div ng-app="kosarica" ng-controller="cijelo" class="tijelo tijeloAdmin">
 
-            <!-- modal diskusije-->
-            <div ng-show="otvoriModal" style="display: block"id="myModalKod" class="modal">
+    while ($row = $stmt->fetch()) {
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span ng-click="zatvoriModalKod()" class="close">&times;</span>
+        array_push($ispis, $row);
+    }
 
 
 
-                    <div class="naslov">
-                        <h1 >{{kodKupona[0].Naziv}} </h1>
 
-                    </div>
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
 
+$smarty->assign('ispis', $ispis);
 
 
 
-                    <ul>
-                        <li class="karticaDiskusije">
-                            <h3 class="nazivPodrucjaInteresa" > <strong> KOD: </strong> {{kodKupona[0].Kod}}</h3>
-                            <h3 class="nazivPodrucjaInteresa" > <strong> Datum kupnje: </strong> {{kodKupona[0].Datum}}</h3>
-                        </li>
+/* kupljeni  kuponi */
 
 
 
-                    </ul>
+$sql = "SELECT * 
+FROM  `kupljeni_kuponi` kk
+LEFT JOIN kuponi_podrucja kp ON kp.ID_kupona = kk.`ID_kupona` 
+LEFT JOIN kuponi_clanstva kc ON kc.ID_kupona = kp.`ID_kupona` 
+WHERE kk.ID_podrucja = kp.ID_podrucja
+AND kk.`ID_korisnika` =:IDkorisnika";
 
-                    <div class="naslov" style="background: white">
-                        <button ng-click="zatvoriModalKod()" id="btnZatvori"> Zatvori pregled</button> 
 
-                    </div>
+try {
+    $ispisKupljenih = array();
 
 
+    $stmt = $dbc->prepare($sql);
 
+    $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
 
+    $stmt->execute();
 
 
 
 
-                </div>
+    while ($row = $stmt->fetch()) {
 
-            </div>
-         
+        array_push($ispisKupljenih, $row);
+    }
 
 
 
-            <div class="section">
 
-                <div class="naslov">
-                    <h1>Košarica</h1>
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
 
-                </div>
+$smarty->assign('ispisKupljenih', $ispisKupljenih);
 
+function kupi() {
+    global $raspolozivoBodova;
+    global $dbc;
+    $uspjesnoKupljen = false;
 
-                <div style="width: 100%;">
-                    <div class="glavniDio">
+    //echo"<br><br>kupi";
+    if (isset($_POST['kupovina'])) {
+        //echo"<br><br>post";
 
 
+        $sql = "SELECT *FROM `kosarica` WHERE `ID_stavke` = :IDstavke and `ID_korisnika` = :IDkorisnika";
 
-                        <a>  <button ng-click="PrikaziKosaricu()" class="btnNavL"> Artikli u košarici</button> </a>
-                        <a >  <button ng-click="PrikaziKupljene()" class="btnNavD"> Kupljeni artiki</button> </a>
 
+        try {
+            $stmt = $dbc->prepare($sql);
+            $stmt->bindParam(':IDstavke', $_POST['IDstavke'], PDO::PARAM_INT);
 
-                        <div ng-show="kupljeniArtikli" class="galerijaKupon kosarica">
 
 
-                            <h3>Kupljeni artikli</h3>
+            $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
 
 
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Kupon u košarici<br><b>$24.99</b></p>
 
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                    <button ng-click="otovoriModalKod($event)" data-id="2" class="gumbKupnjaKupona"> Prikaži kod</button>
-                                    <!-- data_id je id_kupljenog-->
-                                </div>
 
+            $stmt->execute();
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
-                                <p>kupljeni kupon<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                    <button ng-click="otovoriModalKod($event)" data-id="3" class="gumbKupnjaKupona"> Prikaži kod</button>
-                                </div>
+            $stavka = $stmt->fetch();
+            $broj = $stmt->rowcount();
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                    <button ng-click="otovoriModalKod($event)" data-id="4" class="gumbKupnjaKupona"> Prikaži kod</button>
-                                </div>
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                    <button ng-click="otovoriModalKod($event)" data-id="5" class="gumbKupnjaKupona"> Prikaži kod</button>
-                                </div>
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                    <button ng-click="otovoriModalKod($event)" data-id="6" class="gumbKupnjaKupona"> Prikaži kod</button>
-                                </div>
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
 
-                            </div>
+            trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+        }
+       // echo"<br><br>broj: " . $broj;
+        if ($broj == 1) {
 
+           // echo"<br><br> broj 1";
 
+            $sql = "SELECT *FROM `kuponi_podrucja` kp LEFT JOIN podrucja_interesa pi ON pi.ID_podrucja = kp.`ID_podrucja`  LEFT JOIN kuponi_clanstva kc ON kc.ID_kupona = kp.`ID_kupona`  "
+                    . "wHERE kp.`ID_podrucja` = :IDpodrucja and Datum_zavrsetka > :Datum and kp.`ID_kupona` = :IDkupona";
 
+            //echo"<br><br> kupon: " . $stavka['ID_kupona'];
+           // echo"<br><br> pordrucje: " . $stavka['ID_podrucja'];
+            $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
 
+            try {
+                $stmt = $dbc->prepare($sql);
+                $stmt->bindParam(':IDkupona', $stavka['ID_kupona'], PDO::PARAM_INT);
+                $stmt->bindParam(':Datum', $vrijeme, PDO::PARAM_STR);
 
 
-                        </div>
-                        <div ng-show="artikliKosarica"class="galerijaKupon kosarica">
+                $stmt->bindParam(':IDpodrucja', $stavka['ID_podrucja'], PDO::PARAM_INT);
 
 
-                            <h3>Artikli u  košarici</h3>
 
-                            <div >
-                                <button class="gumbKupi" style="width: 100%">Kupi sve u košarici </button>
-                            </div>
 
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Kupon u košarici<br><b>$24.99</b></p>
+                $stmt->execute();
 
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php'"> Pregled </button>
-                                    <button class="gumbKupnjaKupona"> Kupi</button>
+                $kupon = $stmt->fetch();
+                $broj = $stmt->rowcount();
 
-                                </div>
 
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
-                                <p>kupljeni kupon<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="btnKod gumbKupnjaKupona" > Prikaži kod </button>
-                                    <button class="gumbKupnjaKupona"> Pregled kupona</button>
-                                </div>
+                $stmt->closeCursor();
+            } catch (PDOException $e) {
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona">Buy now </button>
-                                    <button class="gumbKupnjaKupona">Buy now </button>
-                                </div>
+                trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+            }
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona">Pregled </button>
-                                    <button class="gumbKupnjaKupona">Buy now </button>
-                                </div>
+            //echo"<br><br>kupon kolicina: " . $broj;
 
-                            </div>
-                            <div class="kupon">
-                                <img src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-                                <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-                                <div class="ikonaKupi">
-                                    <button class="gumbKupnjaKupona">Buy now </button>
-                                    <button class="gumbKupnjaKupona">Buy now </button>
-                                </div>
 
-                            </div>
+            if (!empty($kupon)) {
+              //  echo"<br><br>kupon postoji" . $kupon['Min_broj_bodova'];
+              //  echo"<br><br>raspolozivo" . $raspolozivoBodova;
 
+                if ($raspolozivoBodova >= $kupon['Min_broj_bodova']) {
+                    //obavi kupnju
+                    //  echo"<br><br>ima para";
+                    $sql = "INSERT INTO `kupljeni_kuponi`
+(`ID_kupljlenoga`, `Generirani_kod`, `ID_kupona`, `ID_korisnika`, `Datum_kupnje`, `Iznos`, `ID_podrucja`) 
+VALUES
+ (null,:kod,:IDkupona,:IDkorisnika,:Datum,:Iznos,:IDpodrucja)";
 
 
+                    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
 
+                    try {
+                        $stmt = $dbc->prepare($sql);
 
+                        $stmt->bindParam(':IDkupona', $stavka['ID_kupona'], PDO::PARAM_INT);
+                        $stmt->bindParam(':Datum', $vrijeme, PDO::PARAM_STR);
+                        $stmt->bindParam(':Iznos', $kupon['Min_broj_bodova'], PDO::PARAM_STR);
+                        $stmt->bindParam(':kod', sha1(vrijeme_sustava()), PDO::PARAM_STR);
+                        $stmt->bindParam(':IDpodrucja', $stavka['ID_podrucja'], PDO::PARAM_INT);
+                        $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
 
-                        </div>
 
 
-                    </div>
-                    <div class="desnoOglasi">
-                        <p >Ukupan broj bodova:</p>
+                        $uspjesnoKupljen = $stmt->execute();
 
-                        <h1>15</h1>
 
-                    </div>
+                        //$broj = $stmt->rowcount();
 
-                </div>
+                        dnevnik_zapis(20); //kupljen kupon
 
-            </div>
-            <footer   >
+                        $stmt->closeCursor();
+                    } catch (PDOException $e) {
 
-                <div class = "footer_left">
-                    <figure  >
-                        <a href="https://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2016/zadaca_03/zorhrncic/novi_proizvod.html">
-                            <img src="slike/HTML5.png" width = "150" height="150" alt="HTML5">
+                        trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+                    }
+                } else {
+                    dnevnik_zapis(21); //nema novaca
 
-                        </a>
-                        <figcaption>HTML</figcaption>
-                    </figure> 
-                </div>
+                    echo"<br><br> nema novaca";
 
 
-                <div class = "footer_left">
-                    <p class = " vrijeme_izrade"><strong>Vrijeme potrebno za izradu:</strong> 2.5 sati </p>
 
-                </div>
 
-                <div class = "footer_left">
-                    <figure >
-                        <a  href="https://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2016/zadaca_03/zorhrncic/css/zorhrncic.css"><img   src="slike/CSS3.png" width = "150" height="150" alt="CSS3"></a> 
-                        <figcaption>CSS3</figcaption>
-                    </figure> 
-                </div>
 
-                <div style="width: 100%; text-align: center">
-                    <address> <strong> Kontakt: </strong><a href = "mailto:zorhrncic@foi.hr"> Zoran Hrnčić</a></address>
-                    <p>Izdario 18.03.2016</p>
 
-                    <p> <small>&copy;   18.03.2016 Z. Hrncic</small></p>
-                </div>
+                    //nema se para
+                }
+            }
+        }//if
 
-            </footer>
+        if ($uspjesnoKupljen) {
 
 
-        </div>
 
-    </body>
-</html>
+            $sql = "DELETE FROM `kosarica` WHERE `ID_stavke` = :IDstavke";
+
+
+            try {
+                $stmt = $dbc->prepare($sql);
+                $stmt->bindParam(':IDstavke', $_POST['IDstavke'], PDO::PARAM_INT);
+
+
+
+                $stmt->execute();
+                dnevnik_zapis(22); //obrisana stavka iz košarice
+
+
+
+
+
+
+                $stmt->closeCursor();
+            } catch (PDOException $e) {
+
+                trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+            }
+
+
+            $sql = "INSERT INTO  `WebDiP2016x052`.`promet_bodova` (
+`ID_prometa` ,
+`Datum` ,
+`ID_aktivnosti` ,
+`ID_korisnika` ,
+`ID_kupona` ,
+`Vrsta_prometa` ,
+`Kolicina_bodova`
+)
+VALUES (
+NULL ,  :Datum,  20,  :IDkorisnika,  :IDkupona,  'kupnja',  :Iznos
+);";
+            $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+            try {
+               
+                $stmt = $dbc->prepare($sql);
+
+                $stmt->bindParam(':Datum', $vrijeme, PDO::PARAM_STR);
+                //$stmt->bindParam(':IDaktivnosti', $i, PDO::PARAM_INT);
+
+                $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
+                $stmt->bindParam(':IDkupona', $stavka['ID_kupona'], PDO::PARAM_INT);
+//echo'<br>korinsik: '.$stavka['ID_kupona'];
+//echo'<br>stavka: '.$stavka['ID_kupona'];
+                //$stmt->bindParam(':kupnja', $k, PDO::PARAM_STR);
+                $stmt->bindParam(':Iznos', $kupon['Min_broj_bodova'], PDO::PARAM_STR);
+                
+                
+                //echo '<br>kupon iznos: '.$kupon['Min_broj_bodova'];
+ $stmt->execute();
+
+
+                dnevnik_zapis(23); //umanjen broj bodova
+                //$stmt->execute();
+
+
+
+               
+
+
+                $stmt->closeCursor();
+            } catch (PDOException $e) {
+
+                trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+            }
+        }
+    }//post
+}
+
+/* u košaricu */
+
+function dodajUKosaricu() {
+    global $dbc;
+    if (!empty($_GET['IDkupona']) && !empty($_GET['IDpodrucja'])) {
+
+
+        $sql = "SELECT *FROM `kosarica` WHERE `ID_kupona` = :IDkupona and `ID_podrucja` = :IDpodrucja and `ID_korisnika` = :IDkorisnika";
+
+
+        try {
+            $stmt = $dbc->prepare($sql);
+            $stmt->bindParam(':IDkupona', $_GET['IDkupona'], PDO::PARAM_INT);
+
+            $stmt->bindParam(':IDpodrucja', $_GET['IDpodrucja'], PDO::PARAM_INT);
+
+            $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
+
+
+
+
+            $stmt->execute();
+
+
+            $broj = $stmt->rowcount();
+
+
+
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+
+            trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+        }
+
+
+
+
+        if ($broj < 1) {
+
+
+
+
+
+
+            $sql = "INSERT INTO `kosarica`(`ID_stavke`, `Vrijeme`, `ID_kupona`, `ID_podrucja`, `ID_korisnika`, `Potvrda_kupovine`) VALUES (NULL ,:vrijeme,:IDkupona,:IDpodrucja,:IDkorisnika,0)";
+            $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+            try {
+                $stmt = $dbc->prepare($sql);
+                $stmt->bindParam(':IDkupona', $_GET['IDkupona'], PDO::PARAM_INT);
+
+                $stmt->bindParam(':IDpodrucja', $_GET['IDpodrucja'], PDO::PARAM_INT);
+
+                $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
+
+                $stmt->bindParam(':vrijeme', $vrijeme, PDO::PARAM_STR);
+
+
+                $stmt->execute();
+
+
+
+                dnevnik_zapis(19); //artikal dodan u košaricu
+
+
+                $stmt->closeCursor();
+            } catch (PDOException $e) {
+
+                trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+            }
+        }
+    }
+}
+
+$smarty->display('predlosci/kosarica.tpl');
+include_once 'footer.php';
+?>
+        

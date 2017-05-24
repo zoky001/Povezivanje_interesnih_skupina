@@ -1,178 +1,116 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Povezivanje interesnih skupina</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" 
-              content="width=device-width, initial-scale=1.0">
-        <meta name="title" content="Novi proizvod">
-        <meta name="author" content="Zoran Hrnčić">
-        <meta name="keywords" content="novi_proizvod">
-        <meta name="date" content="07.03.2016">
-      
-        <link rel="stylesheet" media="screen" type="text/css" href="css/podrucjaInteresa.css"/>
-  
+<?php
+if (!isset($_SERVER["HTTPS"]) || strtolower($_SERVER["HTTPS"]) != "on") {
+    $adresa = 'https://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    header("Location: $adresa");
+    exit();
+}
 
+include_once 'okvir/aplikacijskiOkvir.php';
+if (provjeraPrijaveKorisnika() == null) {
 
-
-
-
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-        <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src ="js/zorhrncic.js"></script>
-        <script type="text/javascript" src ="js/zorhrncic_jquery.js"></script>
-        <script type="text/javascript" src ="js/podrucjaInteresa.js"></script>
-        <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
-    </head>
-    <body  onload = "kreirajDogadjajeNoviProizvod();">
+    header("Location: neprijavljeni.php");
+}
+dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
+?>
         <!-- Header neprijavljeni -->
-<?php include_once 'header.php';?>
+        
+        
+<?php $naslov = "Moja podrucja interesa";
+include_once 'header.php';
 
 
+dodajPodrucje();
+//korisnik dodaje novo podrucje interesa
 
- <div class="tijelo">
-        <section id="sadrzaj">
 
+//echo korisnikID();
 
-            <div class="naslov">
-                <h1 >  Moja područja interesa </h1>
 
-            </div>
+  $ispisPodrucja= array();
+    
+       //$sql = "SELECT  `ID_podrucja_interesa` , p.Naziv, p.URLSlike FROM `odabrana_podrucja_interesa` op LEFT JOIN podrucja_interesa p ON p.ID_podrucja = op.`ID_podrucja_interesa` WHERE `ID_korisnika` = :ID ";
 
-            <div id =popisPodrucja class = "popisPodrucja">
+$sql="SELECT  `ID_podrucja_interesa` , p.Naziv, p.URLSlike FROM `odabrana_podrucja_interesa` op LEFT JOIN podrucja_interesa p ON p.ID_podrucja = op.`ID_podrucja_interesa`
+ WHERE `ID_korisnika` = :ID
+AND
+!(SELECT EXISTS(
+     SELECT * FROM `blokiraniKorisnici` where `IDkorisnika` = :ID AND `IDpodrucja` = op.`ID_podrucja_interesa`))";
+    try {
+        $stmt = $dbc->prepare($sql);
 
+        $stmt->bindParam(':ID', korisnikID(), PDO::PARAM_INT);
+        $stmt->execute();
 
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
+        
 
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
+  
+   while ($row = $stmt->fetch()) {
 
+        array_push($ispisPodrucja, $row);
+    }
+        
 
-                    </figure> 
 
-                    <button class="btnNav"> Pregledaj diskusije</button> 
 
-                </div>
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+    }
 
-              <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
+$smarty->assign('ispisPodrucja',  $ispisPodrucja);
 
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
 
 
-                    </figure> 
 
-                    <button class="btnNav"> Pregledaj diskusije</button> 
 
-                </div>
 
 
-             <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
 
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
 
 
-                    </figure> 
 
-                    <button class="btnNav"> Pregledaj diskusije</button> 
+$smarty->display('predlosci/moja_podrucja_interesa.tpl');
 
-                </div>
+function dodajPodrucje(){
+    global $dbc;
+    if (!empty($_GET['add']) && !empty($_GET['IDpodrucja'])) {
+   
+    
+    
+$sql = "INSERT INTO `odabrana_podrucja_interesa`(`ID_korisnika`, `ID_podrucja_interesa`) VALUES (:IDkorisnika,:IDpodrucja)";
+  //  $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
 
-
-               <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-              <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-
-             <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-                    <button class="btnNav"> Pregledaj diskusije</button> 
-
-                </div>
-            </div>
-
-
-
-
-        </section>
-     </div>
-
-        <footer   >
-
-            <div class = "footer_left">
-                <figure  >
-                    <a href="https://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2016/zadaca_03/zorhrncic/novi_proizvod.html">
-                        <img src="slike/HTML5.png" width = "150" height="150" alt="HTML5">
-
-                    </a>
-                    <figcaption>HTML</figcaption>
-                </figure> 
-            </div>
-
-
-            <div class = "footer_left">
-                <p class = " vrijeme_izrade"><strong>Vrijeme potrebno za izradu:</strong> 2.5 sati </p>
-
-            </div>
-
-            <div class = "footer_left">
-                <figure >
-                    <a  href="https://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2016/zadaca_03/zorhrncic/css/zorhrncic.css"><img   src="slike/CSS3.png" width = "150" height="150" alt="CSS3"></a> 
-                    <figcaption>CSS3</figcaption>
-                </figure> 
-            </div>
-
-            <div style="width: 100%; text-align: center">
-                <address> <strong> Kontakt: </strong><a href = "mailto:zorhrncic@foi.hr"> Zoran Hrnčić</a></address>
-                <p>Izdario 18.03.2016</p>
-
-                <p> <small>&copy;   18.03.2016 Z. Hrncic</small></p>
-            </div>
-
-        </footer>
-
-
-
-
-    </body>
-</html>
+       try{
+            $stmt = $dbc->prepare($sql);
+           
+         $stmt->bindParam(':IDpodrucja', $_GET['IDpodrucja'], PDO::PARAM_INT);
+         $stmt->bindParam(':IDkorisnika', korisnikID(), PDO::PARAM_INT);
+        
+            
+             
+           
+       // echo '<br><br><br><br>'.$_GET['add']."<br>".$_GET['IDpodrucja']."<br>". $stmt->execute();
+       if ($stmt->execute()) {
+            dnevnik_zapis(18);
+   
+            zaradiBodove(korisnikID(),18,30);
+        
+       }
+       
+        
+        //dodano podrucje aktivnosti
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        }
+    
+    
+    
+}
+    
+    
+}
+include_once 'footer.php';?>

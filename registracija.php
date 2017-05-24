@@ -1,7 +1,15 @@
 <?php
+if (!isset($_SERVER["HTTPS"]) || strtolower($_SERVER["HTTPS"]) != "on") {
+    $adresa = 'https://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    header("Location: $adresa");
+    exit();
+}
+?>
+
+
+<?php
 include_once 'okvir/aplikacijskiOkvir.php';
-include_once 'commonClass/baza.class.php';
-$veza = new Baza();
+
 
 $postojiIme = false;
 $postojiEmail = false;
@@ -171,10 +179,9 @@ if ($postojiGreska) {
     }
 
 
+    
 
-    $veza->spojiDB();
-
-    $rezultat = $veza->updateDB("INSERT INTO  `WebDiP2016x052`.`korisnik` (
+      $sql = "INSERT INTO  `WebDiP2016x052`.`korisnik` (
 `korisnik_id` ,
 `ime` ,
 `prezime` ,
@@ -187,16 +194,48 @@ if ($postojiGreska) {
 `verificirano` ,
 `broj_neuspjesnih_prijava`,
 `prijavaDvaKoraka`,
-`salt`
+`salt`,
+`vrijemeRegistracije`
 )
 VALUES (
-NULL ,  '$ime',  '$prezime ',  '$korime',  '$mail',  '$lozinka',  '$lozinkaKriptirano',  '3',  '$aktivacijskiKod',  '0',  '0',  '$dvaKoraka',  '$salt'
-)
-");
+NULL ,  :ime, :prezime,  :korime,  :mail,  :lozinka,  :lozinkaK,  '3',  :aktKod,  '0',  '0',  :dvaKoraka,  :salt, :vrijeme
+)";
+    
 
+        try {
+      
+     $vrijemeRegistracije = date('Y-m-d H:i:s', vrijeme_sustava());
+            $stmt = $dbc->prepare($sql);
+$stmt->bindParam(':ime', $ime, PDO::PARAM_STR);
+     
+$stmt->bindParam(':prezime',$prezime, PDO::PARAM_STR);
+     
+$stmt->bindParam(':korime', $korime, PDO::PARAM_STR);
 
+$stmt->bindParam(':mail', $mail, PDO::PARAM_STR);
+            
+$stmt->bindParam(':lozinka', $lozinka, PDO::PARAM_STR);
+            
+$stmt->bindParam(':lozinkaK', $lozinkaKriptirano, PDO::PARAM_STR);
+          
+        $stmt->bindParam(':aktKod', $aktivacijskiKod, PDO::PARAM_STR);
 
-    if ($rezultat) {
+     $stmt->bindParam(':salt', $salt, PDO::PARAM_STR);
+     
+      $stmt->bindParam(':dvaKoraka', $dvaKoraka, PDO::PARAM_STR);
+ $stmt->bindParam(':vrijeme', $vrijemeRegistracije, PDO::PARAM_STR);
+           $dobroUpisano = $stmt->execute();
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+               trigger_error("Problem kod upisa u bazu podataka!" . $e->getMessage(), E_USER_ERROR);
+          
+        }
+
+   
+
+  
+
+    if ($dobroUpisano) {
         // echo "<br>uspješno upisani podatci";
     } else {
         array_push($ispisGresaka,"NEEEEuspješno upisani podatci u bazu ");
@@ -207,22 +246,36 @@ NULL ,  '$ime',  '$prezime ',  '$korime',  '$mail',  '$lozinka',  '$lozinkaKript
 function postojiKorIme($mail) {
     $postoji = false;
 
-    global $veza;
-    $veza->spojiDB();
-    $razultat = $veza->selectDB("SELECT * FROM `korisnik` WHERE `korisnicko_ime` = '" . $mail . "'");
-    $veza->zatvoriDB();
+     global $dbc;
+    
+         $sql = "SELECT * FROM `korisnik` WHERE `korisnicko_ime` = :korIme";
+      
+         
+         try{
+            $stmt = $dbc->prepare($sql);
+        
+            
+                 $stmt->bindParam(':korIme', $mail, PDO::PARAM_STR);
+                 
+            $stmt->execute();
+            
+             $broj = $stmt->rowCount();
+            
+         
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        } 
 
 
-    if (!empty($razultat)) {
-        foreach ($razultat as $value) {
-            // print_r($value); 
-            // echo "<br><br>";
-
-            foreach ($value as $v) {
+    if ($broj > 0) {
+     
+        
                 $postoji = true;
-            }
+          
         }
-    }
+    
 
     return $postoji;
 }
@@ -230,22 +283,38 @@ function postojiKorIme($mail) {
 function postojiMail($mail) {
     $postoji = false;
 
-    global $veza;
-    $veza->spojiDB();
-    $razultat = $veza->selectDB("SELECT * FROM `korisnik` WHERE `email` = '" . $mail . "'");
-    $veza->zatvoriDB();
+     global $dbc;
+    
+         $sql = "SELECT * FROM `korisnik` WHERE `email` =  :mail";
+      
+         
+         try{
+            $stmt = $dbc->prepare($sql);
+        
+            
+                 $stmt->bindParam(':mail', $mail, PDO::PARAM_STR);
+                 
+            $stmt->execute();
+            
+             $broj = $stmt->rowCount();
+            
+         
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        } 
+        
+        
+        
+        
 
-
-    if (!empty($razultat)) {
-        foreach ($razultat as $value) {
-            // print_r($value); 
-            // echo "<br><br>";
-
-            foreach ($value as $v) {
+    if ($broj > 0) {
+     
+        
                 $postoji = true;
-            }
+          
         }
-    }
 
     return $postoji;
 }
@@ -352,7 +421,8 @@ function provjeraNedeozvoljenogZnaka($rijec) {
     dnevnik_zapis(12);
     //neuspješna registracija
 }
-     $smarty->display('predlosci/neprijavljeni.tpl');
+include_once 'neprijavljeni.php';
+    // $smarty->display('predlosci/neprijavljeni.tpl');
      
  
           ?>

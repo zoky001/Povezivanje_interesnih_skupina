@@ -99,6 +99,7 @@ and open the template in the editor.
 
 
 
+                
 
             </div>
     </div>
@@ -108,34 +109,65 @@ and open the template in the editor.
         
 
 
-        <form  ng-show="showPrijava" ng-controller="kontrolaPrijava" class="forma" id="prijava1" style="width:50%; margin-left: 25%"  method="post" name="prijava"  
-               action="http://barka.foi.hr/WebDiP/2016/materijali/zadace/ispis_forme.php">
+        <form  ng-show="{if (isset($otvoriPrijavu) && $otvoriPrijavu) || (isset($PrijavaDvaKoraka) && $PrijavaDvaKoraka) || (isset($postojiGreskaPrijava) && $postojiGreskaPrijava)}!{/if}showPrijava" ng-controller="kontrolaPrijava" class="forma" id="prijava1" style="width:50%; margin-left: 25%"  method="post" name="prijava"  
+               action="prijava.php">
 
 
-
+{if isset($PrijavaDvaKoraka) && $PrijavaDvaKoraka}
+    
+    <p style="text-align: center">Ponovno upisite podatke i jednokratni kod dostavljen na Vašu email adresu.</p>
+    {/if}
 
             <label  id = "Lkorime" for="korime">Korisničko ime:</label>
-            <input ng-model="firstName" type="text" id="korime" name="korime" required=> <br> 
+            <input ng-model="firstName" type="text" id="korime"  value="imei pre"  name="korime" required> <br> 
 
 
 
             <label   id = "Llozinka" for="lozinka">Lozinka:</label>
-            <input  ng-model="password" type="password" id="lozinka" name="lozinka" required="">  <br> 
-
+            <input   ng-model="password" type="password" id="lozinka" name="lozinka" required>  <br> 
+  {if isset($PrijavaDvaKoraka) && $PrijavaDvaKoraka}
             <label  id = "jedinstveniKod" for="kod">Jedinstveni kod:</label> 
- <input  ng-model="kod" type="text" id="kod" name="kod" >  <br> 
+ <input  ng-model="kod" type="text" id="kod" name="kodPrijava" >  <br> 
+
+   {/if}        
+
 
            
 
-
-            <!--
-                                <label  id = "reg" > <a href="registracija.html" class="reg">Registracija  </a></label> 
-            -->
+            <input class="gumb" type="submit" name="submit" value="Prijavi se">
 
 
-            <input class="gumb" type="submit" value="Prijavi se">
+            {if (isset($postojiGreskaPrijava) && $postojiGreskaPrijava)}
+          
 
 
+                <div class="greskeRegistracija" style="width:50%;margin-left: 25%"> 
+                    
+{foreach from=$Greska item=elem}
+    
+<p>{$elem}</p>
+
+{/foreach}
+                  
+                </div>
+
+        
+{/if}
+
+   <div class = "footer_left" style = "margin-left: 20%; width: 60%">
+                <p class = " vrijeme_izrade"><strong>Korisničko ime:</strong> {$kor1} <br>
+                    <strong>Lozinka:</strong> {$loz1}</p>
+
+                <br>
+                <p class = " vrijeme_izrade"><strong>Korisničko ime (admin):</strong>{$kor2} <br>
+                    <strong>Lozinka:</strong> {$loz2}</p>
+                <br>
+                <p class = " vrijeme_izrade"><strong>Korisničko ime (moderator):</strong>{$kor3}  <br>
+                    <strong>Lozinka:</strong> {$loz3} </p>
+                <br>
+                <p class = " vrijeme_izrade"><strong>Korisničko ime (dva koraka):</strong>{$kor4} <br>
+                    <strong>Lozinka:</strong> {$loz4} </p>
+            </div>
 
         </form>
         
@@ -343,95 +375,32 @@ and open the template in the editor.
 
             <div id =popisPodrucja class = "popisPodrucja">
 
+                
+                {foreach from=$ispisPodrucja  item=elem}
 
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
+
+                
+                
+                     <div class ="karticaPodrucja">
+                    <h3 class="nazivPodrucjaInteresa" >{$elem['Naziv']}</h3>
 
                     <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
+                        <img src="{$elem['URLSlike']}" alt="logo" class="slikaKarticePodrucja" >
 
 
                     </figure> 
 
 
-                    <button data-id = "7" ng-click="otovoriModalDiskusija($event)" class="btnDiskusije"> Pregledaj diskusije</button> 
+                    <button data-id = "{$elem['ID_podrucja']}" ng-click="otovoriModalDiskusija($event)" class="btnDiskusije"> Pregledaj diskusije</button> 
 
                 </div>
+                
+                
+                {/foreach}
 
+         
 
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-
-                    <button data-id = "10" ng-click="otovoriModalDiskusija($event)" class="btnDiskusije"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-
-                    <button data-id = "3" ng-click="otovoriModalDiskusija($event)" class="btnDiskusije"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-
-                    <button data-id = "1" ng-click="otovoriModalDiskusija($event)"class="btnDiskusije"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-
-                    <button class="btnDiskusije"> Pregledaj diskusije</button> 
-
-                </div>
-
-
-                <div class ="karticaPodrucja">
-                    <h3 class="nazivPodrucjaInteresa" >naziv</h3>
-
-                    <figure >
-                        <img src="slike/header.jpg" alt="logo" class="slikaKarticePodrucja" >
-
-
-                    </figure> 
-
-
-                    <button class="btnDiskusije"> Pregledaj diskusije</button> 
-
-                </div>
+             
             </div>
 
 
