@@ -11,11 +11,19 @@ if (provjeraPrijaveKorisnika() == null) {
     header("Location: neprijavljeni.php");
 }
 dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
+zaradiBodove(korisnikID(),31, '1');
 ?>
         <!-- Header neprijavljeni -->
         
         
-<?php $naslov = "Popis diskusija";
+<?php
+if (!empty($_GET['IDpodrucja'])) {
+  //  echo '<br><br><br><br><br><BR><br><br>emptiy';
+  dizajn($_GET['IDpodrucja']);  
+}
+
+
+$naslov = "Popis diskusija";
 include_once 'header.php';
 
 

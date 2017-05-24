@@ -3,17 +3,14 @@
 
         <div ng-app="popisDiskusija" ng-controller="cijelo" class="tijelo">
 
-        <section id="sadrzaj">
+            <section id="sadrzaj" class="section1">
 
    <div class="naslov">
                     <h1 >{$NazivPodrucja} </h1>
 
                 </div>
              
-   <div class="naslov" style="background: white">
-                       <button id="btnUspjeh"> Dodaj područje interesa </button> 
 
-                </div>
 
 
                 <ul>
@@ -33,7 +30,7 @@
 
                 </ul>
                 
-                  <div class="naslov" style="background: white">
+                  <div class="naslov section1">
                        <button id="btnZatvori" ng-click="doTheBack()"> Povratak</button> 
 
                 </div>

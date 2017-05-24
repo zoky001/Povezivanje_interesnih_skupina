@@ -40,6 +40,62 @@ NULL ,  :datum,  :IDaktivnost,  :IDkorisnika, NULL ,  'Zarada',  :bodovi
    
 }
 
+function vratiIDpodrucja($ID){
+    global $dbc;
+    
+    $sql = "SELECT  `ID_podrucja_interesa` as 'ID' 
+FROM `diskusije` 
+WHERE `ID_diskusije` = :ID";
+  // $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+try {
+     
+    $stmt = $dbc->prepare($sql);
+$stmt->bindParam(':ID',$ID, PDO::PARAM_INT);
+   $uspjeh = $stmt->execute();
+    //echo '<br><br><br><br><br><BR><br><br>uspjeh'.$uspjeh;
+    $row = $stmt->fetch();
+    return $row['ID'];
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
+    
+}
+function dizajn($ID){
+     global $dbc;
+     global $smarty;
+
+     
+    $sql = "SELECT * 
+FROM  `dizajn` 
+WHERE  `podrucja_interesa_ID_podrucja` = :ID";
+  // $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+try {
+     
+    $stmt = $dbc->prepare($sql);
+$stmt->bindParam(':ID',$ID, PDO::PARAM_INT);
+   $uspjeh = $stmt->execute();
+    //echo '<br><br><br><br><br><BR><br><br>uspjeh'.$uspjeh;
+$smarty -> assign('dizajnIF',$uspjeh);
+    $row = $stmt->fetch();
+
+    $smarty -> assign('body',$row['bojaPozadine']);
+$smarty -> assign('slova',$row['bojaSlova']);
+$smarty -> assign('pozSekcije',$row['bojaPozadineSekcije']);
+$smarty -> assign('obrubSekcije',$row['bojaObrubaSekcije']);
+
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
+    
+    
+}
+
+
+
 
 function brojBodova(){
     global $dbc;

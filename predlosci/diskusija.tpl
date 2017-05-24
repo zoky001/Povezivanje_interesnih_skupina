@@ -6,7 +6,7 @@
             
       
 
-        <section id="sadrzaj">
+            <section id="sadrzaj" class="section1">
 
             <div class="naslov">
                 <h1 >{$Diskusija['Naziv']} </h1>

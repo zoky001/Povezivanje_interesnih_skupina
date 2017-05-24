@@ -19,7 +19,7 @@ dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
 include_once 'header.php';
 brojBodova();
 
-
+$ispisKupona ="";
 if (!empty($_GET['IDkupona']) && !empty($_GET['IDpodrucja']) ) {
     
     if(!empty($_GET['kupljen'])){
@@ -63,9 +63,53 @@ if (!empty($_GET['IDkupona']) && !empty($_GET['IDpodrucja']) ) {
         trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
     }
 
-$smarty->assign('ispisKupona',  $ispisKupona);
 
+$smarty->assign('ispisKupona',  $ispisKupona);
 }
+elseif (!empty ($_GET['IDkupona']) && empty($_GET['IDpodrucja'])) {
+    //smo kupon
+    echo '<br><br><br><br>';
+    
+           $sql = "SELECT * FROM `kuponi_clanstva` 
+WHERE `ID_kupona` = :ID";
+
+
+    try {
+        
+      
+        $stmt = $dbc->prepare($sql);
+
+        $stmt->bindParam(':ID', $_GET['IDkupona'], PDO::PARAM_INT);
+        
+        $stmt->execute();
+
+        
+
+  
+   while ($row = $stmt->fetch()) {
+
+        $ispisKupona =$row;
+    }
+        
+
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+    }
+    
+    
+    
+
+    
+    
+    $smarty->assign('kupljen',  true);
+ $smarty->assign('ispisKupona',  $ispisKupona);   
+    
+}
+ else {
+    header("Location: neprijavljeni.php");
+}
+
 
 
 

@@ -39,6 +39,31 @@ and open the template in the editor.
         
         <!-- <meta http-equiv="refresh" content="7; url=http://arka.foi.hr/">-->
     </head>
+  
+    <style>
+        
+    {if isset($dizajnIF) && $dizajnIF} 
+        
+.section1{
+    
+        background-color:{$pozSekcije};
+    
+       
+
+    border-color:{$obrubSekcije};
+ 
+    
+    
+
+    
+  
+}  
+
+body{ background-color:{$body};
+      color:{$slova}; 
+}
+   {/if}     
+</style>
     <body>    
 
 <header>

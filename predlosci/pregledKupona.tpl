@@ -28,6 +28,7 @@
                         </nav>
 
                         <div class="galerija">
+                             
                             
                             {if isset($ispisKupona) && $ispisKupona}
                             <h3 style="text-align: left; margin-left: 20px;">{$ispisKupona[0]['Naziv']}  </h3> 

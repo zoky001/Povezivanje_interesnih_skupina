@@ -93,7 +93,7 @@ $sql = "INSERT INTO `odabrana_podrucja_interesa`(`ID_korisnika`, `ID_podrucja_in
        if ($stmt->execute()) {
             dnevnik_zapis(18);
    
-            zaradiBodove(korisnikID(),18,30);
+            zaradiBodove(korisnikID(),18,50);
         
        }
        

@@ -6,7 +6,7 @@
 
 
             <div class="section">
-
+{if isset($ispisKupona) && $ispisKupona }
                 <div class="naslov">
                     <h1>{$ispisKupona['Naziv_kupona']}  </h1>
                
@@ -104,6 +104,6 @@
 
 
             </div>
-
+{/if}
         </div>
    

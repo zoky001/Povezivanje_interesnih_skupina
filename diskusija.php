@@ -11,11 +11,19 @@ if (provjeraPrijaveKorisnika() == null) {
     header("Location: neprijavljeni.php");
 }
 dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
+zaradiBodove(korisnikID(),31, 1);
 ?>
         <!-- Header neprijavljeni -->
         
         
-<?php $naslov = "Diskusija";
+<?php 
+if (!empty($_GET['IDdiskusije'])) {
+  //  echo '<br><br><br><br><br><BR><br><br>emptiy';
+  dizajn(vratiIDpodrucja($_GET['IDdiskusije']));  
+}
+
+
+$naslov = "Diskusija";
 include_once 'header.php';
 
 
@@ -149,7 +157,7 @@ function noviKomentar(){
         if($stmt->execute()){
             
             //echo '<br> <br> komentar je uspjesan';
-            zaradiBodove(korisnikID(),1,5);
+            zaradiBodove(korisnikID(),1,20);
         }
             
              
