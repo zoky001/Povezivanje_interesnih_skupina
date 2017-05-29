@@ -17,6 +17,7 @@
                         <nav style="width:20%;">
 
                             <h4>Popis kategorija:</h4>
+                            
                             <ul>
                                 {foreach from=$ispisPodrucja  item=elem}
                                     <li> <a href="pregled_kupona.php?IDpodrucja={$elem['ID_podrucja_interesa']}">{$elem['Naziv']}</a></li>

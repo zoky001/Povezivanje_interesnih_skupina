@@ -28,33 +28,31 @@
                             </div>
 {/if}
                             <div>
-                                <img ng-src="{{izvor}}" style="width:100%;margin-bottom:-6px">
+                                <img ng-src="{{izvor}}" style="width:100%; max-height: 400px;margin-bottom:-6px">
                               
                             </div>
 
                             <div style="text-align: left">
                                 <div class="kupon">
-                                    <img ng-click="PromjeniSliku($event)" ng-model="slika1" src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
+                                    <img ng-click="PromjeniSliku($event)" ng-model="slika1" src="{$ispisKupona['Slika']}"style="max-width: 100%;height: 200px;">
 
 
 
                                 </div>
+                                
+                                {if isset($galerija) && $galerija }
+                                  {foreach from=$galerija item=elem}
+
+
                                 <div class="kupon">
-                                    <img ng-click="PromjeniSliku($event)" src="slike/mljeko.jpg" style="max-width: 100%;height: 200px;">
+                                    <img ng-click="PromjeniSliku($event)" src="{$elem['Slika']}" style="max-width: 100%;height: 200px;">
 
 
 
                                 </div>
-                                <div class="kupon">
-                                    <img ng-click="PromjeniSliku($event)" src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-
-
-                                </div>
-                                <div class="kupon">
-                                    <img ng-click="PromjeniSliku($event)" src="slike/kruh.jpg"style="max-width: 100%;height: 200px;">
-
-
-                                </div>
+{/foreach}
+                                {/if}
+                               
 
 
 

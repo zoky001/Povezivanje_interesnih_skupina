@@ -65,6 +65,48 @@ if (!empty($_GET['IDkupona']) && !empty($_GET['IDpodrucja']) ) {
 
 
 $smarty->assign('ispisKupona',  $ispisKupona);
+
+
+$galerija = array();
+/*ispis galerije*/
+ $sql = "SELECT * FROM `slikeKuponi` 
+WHERE `IDkupona` = :ID
+ORDER BY`ID_slike` DESC
+LIMIT 3";
+
+
+    try {
+        
+      
+        $stmt = $dbc->prepare($sql);
+
+        $stmt->bindParam(':ID', $_GET['IDkupona'], PDO::PARAM_INT);
+        
+        $stmt->execute();
+  while ($row = $stmt->fetch()) {
+
+        array_push($galerija, $row);
+    }
+        
+
+  
+   
+        
+
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+    }
+    
+    
+    
+
+    
+    
+   
+ $smarty->assign('galerija',  $galerija); 
+/*kraj galerje*/ 
+    
 }
 elseif (!empty ($_GET['IDkupona']) && empty($_GET['IDpodrucja'])) {
     //smo kupon
@@ -103,7 +145,47 @@ WHERE `ID_kupona` = :ID";
     
     
     $smarty->assign('kupljen',  true);
- $smarty->assign('ispisKupona',  $ispisKupona);   
+ $smarty->assign('ispisKupona',  $ispisKupona);  
+
+$galerija = array();
+/*ispis galerije*/
+ $sql = "SELECT * FROM `slikeKuponi` 
+WHERE `IDkupona` = :ID
+ORDER BY`ID_slike` DESC
+LIMIT 3";
+
+
+    try {
+        
+      
+        $stmt = $dbc->prepare($sql);
+
+        $stmt->bindParam(':ID', $_GET['IDkupona'], PDO::PARAM_INT);
+        
+        $stmt->execute();
+  while ($row = $stmt->fetch()) {
+
+        array_push($galerija, $row);
+    }
+        
+
+  
+   
+        
+
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+    }
+    
+    
+    
+
+    
+    
+   
+ $smarty->assign('galerija',  $galerija); 
+/*kraj galerje*/ 
     
 }
  else {

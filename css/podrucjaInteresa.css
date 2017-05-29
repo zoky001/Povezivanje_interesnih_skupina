@@ -670,24 +670,23 @@ hr{
 
 /* navigacija admin*/
 
-
-
-.navigacijaAdmin > ul{
+.navigacijaAdmin1 > ul{
       
-    border-width: 10px;
+   margin-left: 10%;
     border-color: white;
     list-style: none;
-    color: yellow;
+    
+    
 }
 
-.navigacijaAdmin > ul > li{
+.navigacijaAdmin1 > ul > li{
     border-left-style:solid;  
      
     border-width: 1px;
     border-color: white;
-    width: 10%;
+    
     height: 20px;
-    min-width: 200px;
+    min-width: 100px;
    float: left;
   
    background-color:black;
@@ -695,29 +694,30 @@ hr{
     padding-bottom: 0px;
     
 }
-.navigacijaAdmin > ul > li:hover{
+.navigacijaAdmin1 > ul > li:hover{
     border-left-style:solid;  
 
     border-width: 1px;
     border-color: white;
-    width: 10%;
+    
       height: 20px;
-    min-width: 200px;
+    
    float: left;
 
    padding-top: 9px;
    
     
 }
-.navigacijaAdmin > ul > li > a{
+.navigacijaAdmin1 > ul > li > a{
     
     padding-top: 10px;
 
    color: white;
    text-decoration: none;
+   
     
 }
-.navigacijaAdmin > ul > li > a:hover{
+.navigacijaAdmin1 > ul > li > a:hover{
     
     padding-top: 10px;
 
@@ -726,18 +726,19 @@ hr{
     
 }
 
-.navigacijaAdmin{
+.navigacijaAdmin1{
    
     
    
     width: 100%;
-    margin-left: -0.5%;
+   
     margin-top: -0.9%;
     text-align: center;
    background-color:black;
    
-   
+  
 }
+/*admin*/
 
 .btnPrijava{
     width: 200px;

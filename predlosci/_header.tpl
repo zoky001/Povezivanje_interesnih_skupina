@@ -81,49 +81,56 @@ body{ background-color:{$body};
                          
             
 
-<div  class="navigacijaAdmin" style=" color: white;margin-left: 0%">
+<div  class="navigacijaAdmin1" style=" color: white;margin-left: 0%">
  
      
    
   
                  
-    <ul style="float: none; margin-left: -5%">
+    <ul style="margin-left: -2%; margin-right: -5%;">
                         
                         
         <li style="border-left: none; ">
-                    <a href="diskusijeModerator.php">  Područja interesa </a>
+            <a href="podrucjaAdmin.php" style="padding-right: 7px">   Pregled područja interesa  </a>
                     </li>
                     
                     <li >
                
-                    <a href="pretplatnici.php"> Kuponi</a>
+                    <a href="kuponiAdmin.php" style="padding-right: 7px; padding-left: 7px"> Definiranje kupona članstva</a>
                     </li> 
          
                     <li>
-                        <a href="kuponiModerator.php"> Statistika </a>   
+                        <a href="kuponiModerator.php">   Statistike </a>   
                     </li>
                     <li>
-                          <a href="dizajn.php">  Dizajn</a>  
+                          <a href="dizajn.php">  LOG sustava</a>  
+                    </li>
+                    
+                    <li>
+                          <a href="dizajn.php">  CRUD</a>  
+                    </li>
+                     <li>
+                          <a href="dizajn.php">  </a>  
                     </li>
                 
-                    <li >
-                        <a >   Odjava  </a> 
-                    </li>
+                  
                    
                
                     </ul>
     
     
-    <ul style="float: right">
+    <ul style="float: right; margin-left: -5%">
         
-        <li style="border-left: none;margin-top: -15px; ">
-            <a> Moderator</a>
+        <li style="border-left: none; margin-top: -15px; ">
+            <a> <b>Administrator:</b>  &nbsp;&nbsp;</a>
         </li>
         
     </ul>
     <br>
 
     <br>
+    
+    
                 </div>
             
 
@@ -158,9 +165,7 @@ body{ background-color:{$body};
                           <a href="dizajn.php">  Dizajn</a>  
                     </li>
                 
-                    <li >
-                        <a >   Odjava  </a> 
-                    </li>
+                  
                    
                
                     </ul>
