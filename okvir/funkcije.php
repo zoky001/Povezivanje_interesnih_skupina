@@ -1,4 +1,36 @@
 <?php
+
+function stranicenje(){
+    global $dbc;
+
+
+
+
+    $sql = "SELECT  `stranicenje` FROM `postavke` WHERE `ID_postavke` = 1";
+    
+    
+try {
+    $stmt = $dbc->prepare($sql);
+ 
+    $stmt->execute();
+
+
+   $row = $stmt->fetch();
+
+     
+
+
+
+
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
+return $row['stranicenje'];   
+}
+
+
+
 function zaradiBodove($korisnik,$aktivnost, $bodovi){
     global $dbc;
 $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());

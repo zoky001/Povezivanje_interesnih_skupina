@@ -103,7 +103,7 @@ body{ background-color:{$body};
                         <a href="kuponiModerator.php">   Statistike </a>   
                     </li>
                     <li>
-                          <a href="dizajn.php">  LOG sustava</a>  
+                          <a href="logAdmin.php">  LOG sustava</a>  
                     </li>
                     
                     <li>

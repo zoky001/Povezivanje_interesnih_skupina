@@ -22,3 +22,4 @@ var appPretplatniciModerator= angular.module("pretplatnici", ['ngAnimate'])
 
 var appKuponiModerator= angular.module("kuponiModerator", ['ngAnimate'])
 
+var fessmodule = angular.module('log', []);
