@@ -38,6 +38,7 @@ class Sesija {
         session_name(self::SESSION_NAME);
 
         if (session_id() == "") {
+    
             session_start();
         }
     }

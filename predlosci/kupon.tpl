@@ -27,6 +27,11 @@
                                 <a href="kosarica.php?IDkupona={$ispisKupona['ID_kupona']}&IDpodrucja={$ispisKupona['ID_podrucja']}">  <button class="gumbKupi" style="width: 100%"> U košaricu za - <b>{$ispisKupona['Min_broj_bodova']} </b> bodova</button></a>
                             </div>
 {/if}
+<br>
+   <div >
+       <a target="_blank" href="pdf/phpCreate.php?Naziv={$ispisKupona['Naziv_kupona']}&Opis={$ispisKupona['Opis_kupona']}&Slika={$ispisKupona['Slika']}">  <button class="gumbKupi" style="width: 100%"> Preuzimi <b>PDF</b> dokument. </button></a>
+                            </div>
+<br>
                             <div>
                                 <img ng-src="{{izvor}}" style="width:100%; max-height: 400px;margin-bottom:-6px">
                               
@@ -86,6 +91,8 @@
                                 <h3><b>Opis kupona</b></h3>
                                 <p>{$ispisKupona['Opis_kupona']}</p>
                             </div>
+                            
+                            
 
                         </div>
 

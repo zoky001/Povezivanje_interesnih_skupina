@@ -100,18 +100,24 @@ body{ background-color:{$body};
                     </li> 
          
                     <li>
-                        <a href="kuponiModerator.php">   Statistike </a>   
+                        <a href="statistikaAdmin.php">   Statistike </a>   
                     </li>
                     <li>
                           <a href="logAdmin.php">  LOG sustava</a>  
                     </li>
                     
-                    <li>
-                          <a href="dizajn.php">  CRUD</a>  
-                    </li>
                      <li>
-                          <a href="dizajn.php">  </a>  
+                          <a href="otkljucavanjeKorisnika.php"> Otključavanje korisnika</a>  
                     </li>
+                    
+                     <li>
+                          <a href="postavkeAdmin.php"> Postavke</a>  
+                    </li>
+                    
+                    <li>
+                          <a href="CRUD.php">  CRUD</a>  
+                    </li>
+                 
                 
                   
                    
@@ -190,7 +196,9 @@ body{ background-color:{$body};
                 
                 
 
-                
+                {if isset($neprijavljeni) && neprijavljeni}
+                   
+                {else}
                     <div  class="navigacijaNormalno"style="clear: both; "> 
                     <a href="kosarica.php">  <button class="btnNavL"> Košarica</button> </a>
                     <a href="podrucja_interesa.php"> <button class="btnNav"> Područja interesa</button> </a>
@@ -199,36 +207,13 @@ body{ background-color:{$body};
                     <a href="sakupljeni_bodovi.php">  <button class="btnNav"> Sakupnjanje bodova</button> </a>
                     <a  href="{$odjava}">  <button class="btnNavD"> Odjava</button> </a>
                     </div>
+                    {/if}
+                    
+                    
+                   
                     
                     
                     
-                    <div class="navigacijaNormalnoMali">
-                        <p id="meniBtn" style="float: left; max-width: 20%;color:black; height: 20px " class="btn">  Meni </p>
-                    </div>
-                    
-                    
-                    <div id="meni" class="navigacijaNormalnoMeni">
-                        <ul>
-                            
-                            
-                            <li>
-                                
-                                <a class="klik" href="podrucja_iteresa.php"> Područja interesa</a>
-                            </li>
-                            
-                             <li>
-                                 <a class="klik" href="moja_podrucja_interesa.php">  Moja područja interesa </a>
-                                
-                            </li>
-                             <li>
-                                  <a class="klik" href="pregled_kupona.php">   Pregled kupona</a>
-                                
-                            </li>
-                            <li>
-                                   <a class="klik" href="sakupljeni_bodovi.php">   Sakupnjanje bodova </a>
-                            </li>
-                        </ul>
-                    </div>
                   
                 </div>
             </div>

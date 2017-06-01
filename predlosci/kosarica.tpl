@@ -34,6 +34,17 @@
                         <button ng-click="zatvoriModalKod()" id="btnZatvori"> Zatvori pregled</button> 
 
                     </div>
+                        
+                         <div class="naslov" style="background: white">
+                        <button onclick="myFunctionispis()" id="btnZatvori"> Ispis</button> 
+
+
+<script>
+function myFunctionispis() {
+    window.print();
+}
+</script>
+                    </div>
 
 
 

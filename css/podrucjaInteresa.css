@@ -1,3 +1,116 @@
+@media print {
+  
+    /* tablica pretplatnici*/
+table.tablica1
+{
+ border-bottom:  3px solid  blue;
+     border-left:  3px solid  blue;
+     border-right:  3px solid  blue;
+     
+     width: 50%;
+         
+    
+         
+}
+caption.tablica1
+{
+    color: mediumblue;
+    background-color: #7CAD72;
+    padding: 5px;
+  border: 3px solid  blue;
+  border-bottom: 3px  double blue;
+  
+}
+
+tr.tablica1_zaglavlje{
+    color:  darkgreen;
+    border-bottom:    3px solid  blue;
+    font-weight: bold;
+    
+}
+tr.tablica1_redak1
+{background-color: lightskyblue;
+    color: darkgreen;
+    
+}
+tr.tablica1_redak1:hover
+{
+    color: black;
+    background-color: #FFFE66;
+}
+tr.tablica1_redak2
+{
+    background-color:#ffcccc;
+    color: darkgreen;
+     
+}
+tr.tablica1_redak2:hover
+{
+    color: black;
+    background-color: #FFFE66;
+}
+
+tr.tablica1_redak1,  tr.tablica1_redak2 
+{
+    text-align: center;
+}
+tr{
+    
+    border: 1px solid  blue;
+}
+th,td {
+ 
+    border: 2px solid darkgreen;
+}
+
+  
+}
+
+
+.podaci{
+    
+    border-left: 6px solid #407F45;
+    background-color: lightgrey;
+   
+    width:60%;
+    margin-left: 10%;
+   
+}
+
+
+#omiljeni_proizvodi {
+    margin:2%;
+    margin-top: 0px;
+    width:96%;
+    
+    float:left;
+   
+ 
+}
+
+
+.opis_proizvoda{
+
+ text-align: justify;
+ padding-left: 10px;
+ padding-right: 10px;
+    
+    
+    
+}
+
+   .omiljeni_proizvod{
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+     border-style:solid;
+    border-width: 3px;
+    border-color: black;
+    background-color:#8DFFA2;
+    width:50%;
+    margin-left: 25%;
+    border-radius: 9px;
+
+}
 
 .preNext{
     
@@ -1180,7 +1293,18 @@ th,td {
 }
 footer{
     clear:both;
+    
     background-color: #DBFF7C;
+      font-family:arial;
+    padding-top: 15px;
+    padding-bottom: 0px;
+    position: relative;
+    width: 101.3%;
+    clear: both;
+   /* background: black;*/
+    margin-left: -0.8%;
+    margin-bottom: -2%;
+       /* height: 200px;*/
 }
 
 .vrijeme_izrade{

@@ -571,7 +571,691 @@ console.log ();
 
      
     }
+    
+    
+    /*statistika*/
+    $scope.prikaziStatistikaBPK = false;
+    $scope.prikaziStatistikaBPA = false;
+    
+    $scope.prikazBpK =function () {
+         
+       
+         
+         
+         var d = $scope.aktivnost;
+       
+         
+         
+         console.log("odDatuma"+d);
+         
+          
+          
+          
+           $http.get("./responseJSON/Statistika.php?promet="+d)
+                .then(function (response) {
+                    $scope.items = response.data.records;  
+        console.log("bok1");  console.log($scope.items);
+         
+                
+              
+              
+                /*graph*/
+         
+         var boje = [];
+         var ime = [];
+
+         
+         var brojElemenata = $scope.items.length;
+         var platno = document.getElementById("platno1");
+var ctx = platno.getContext("2d");
+ctx.clearRect(0, 0, platno.width, platno.height);
+ctx.fillStyle = "rgb(0, 0, 0)";
+ctx.strokeRect(40, 0, 320, 400);
+for (var i = 0; i < brojElemenata; i++) {
+//var d = Math.round(Math.random() * 400);
+var c = Math.round(Math.random() * 255);
+var z = Math.round(Math.random() * 255);
+var p = Math.round(Math.random() * 255);
+var boja = "rgb(" + c + "," + z + "," + p + ")";
+ctx.fillStyle = boja;
+var p = {boja:boja, naziv:$scope.items[i].Korisnik};
+
+
+boje.push(p);
+
+
+//ime.push($scope.items[i].Aktivnost);
+
+ctx.fillRect(100 + 40 * (i - 1), (400-0.2*$scope.items[i].Bodova) , 15, 400);
+}
+
+                 $scope.boje = boje;
+              
+    $scope.prikaziStatistikaBPK = true;
+$scope.itemsPerPage =$scope.items[0].Stranicenje;
+console.log("bok stranicenje");
+console.log ();
+
+
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    // init the filtered items
+    $scope.search = function () {
+        $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+            for(var attr in item) {
+                if (searchMatch(item[attr], $scope.query))
+                    return true;
+            }
+            return false;
+        });
+        // take care of the sorting order
+        if ($scope.sort.sortingOrder !== '') {
+            $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+        }
+        $scope.currentPage = 0;
+        // now group by pages
+        $scope.groupToPages();
+    };
+    
+  
+    // calculate page in place
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        
+        for (var i = 0; i < $scope.filteredItems.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+            }
+        }
+    };
+    
+    $scope.range = function (size,start, end) {
+        var ret = [];        
+        console.log(size,start, end);
+                      
+        if (size < end) {
+            end = size;
+            start = size-$scope.gap;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }        
+         console.log(ret);        
+        return ret;
+    };
+    
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+    
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+        }
+    };
+    
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    // functions have been describe process the data for display
+    $scope.search();
+    
+  
+          });
+
+     
+    }
+    
+    $scope.prikazBpA =function () {
+         
+       
+         
+         
+         var d = $scope.aktivnost;
+       
+         
+         
+         console.log("odDatuma"+d);
+         
+          
+          
+          
+           $http.get("./responseJSON/Statistika.php?prometAktivnosti="+d)
+                .then(function (response) {
+                    $scope.items = response.data.records;  
+        console.log("bok1Duljina");  console.log($scope.items.length);
+         
+         /*graph*/
+         
+         var boje = [];
+         var ime = [];
+
+         
+         var brojElemenata = $scope.items.length;
+         var platno = document.getElementById("platno");
+var ctx = platno.getContext("2d");
+ctx.clearRect(0, 0, platno.width, platno.height);
+ctx.fillStyle = "rgb(0, 0, 0)";
+ctx.strokeRect(40, 0, 320, 400);
+for (var i = 0; i < brojElemenata; i++) {
+//var d = Math.round(Math.random() * 400);
+var c = Math.round(Math.random() * 255);
+var z = Math.round(Math.random() * 255);
+var p = Math.round(Math.random() * 255);
+var boja = "rgb(" + c + "," + z + "," + p + ")";
+ctx.fillStyle = boja;
+var p = {boja:boja, naziv:$scope.items[i].Aktivnost};
+
+
+boje.push(p);
+
+
+//ime.push($scope.items[i].Aktivnost);
+
+ctx.fillRect(100 + 40 * (i - 1), (400-0.2*$scope.items[i].Bodova) , 15, 400);
+}
+
+                 $scope.boje = boje;
+                 $scope.ime = ime;
+                 
+                 
+                 console.log($scope.boje[0]);
+         
+         
+         
+         
+         
+                
+              
+    $scope.prikaziStatistikaBPA = true;
+$scope.itemsPerPage =$scope.items[0].Stranicenje;
+console.log("bok stranicenje");
+console.log ();
+
+
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    // init the filtered items
+    $scope.search = function () {
+        $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+            for(var attr in item) {
+                if (searchMatch(item[attr], $scope.query))
+                    return true;
+            }
+            return false;
+        });
+        // take care of the sorting order
+        if ($scope.sort.sortingOrder !== '') {
+            $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+        }
+        $scope.currentPage = 0;
+        // now group by pages
+        $scope.groupToPages();
+    };
+    
+  
+    // calculate page in place
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        
+        for (var i = 0; i < $scope.filteredItems.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+            }
+        }
+    };
+    
+    $scope.range = function (size,start, end) {
+        var ret = [];        
+        console.log(size,start, end);
+                      
+        if (size < end) {
+            end = size;
+            start = size-$scope.gap;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }        
+         console.log(ret);        
+        return ret;
+    };
+    
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+    
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+        }
+    };
+    
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    // functions have been describe process the data for display
+    $scope.search();
+    
+  
+          });
+
+     
+    }
+    
+    /*otklucavanje*/
+    $scope.prikazKorisnikaOTK = false;
+    
+    
+    $scope.dohvatiZakljucane =function () {
+         
+       
+         
+         
+         
+       
+         
+         
+         
+          
+          
+          
+           $http.get("./responseJSON/zakljucani.php?dohvati=zakljucane")
+                .then(function (response) {
+                    $scope.items = response.data.records;  
+        console.log("zakljucani:");  console.log($scope.items);
+         $scope.boja = "#FF806F";
+         $scope.gget = "otkljucaj";
+                
+              $scope.akcija = "OTKLJUČAJ";   
+    $scope.prikazKorisnikaOTK = true;
+$scope.itemsPerPage =$scope.items[0].Stranicenje;
+console.log("bok stranicenje");
+console.log ();
+
+
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    // init the filtered items
+    $scope.search = function () {
+        $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+            for(var attr in item) {
+                if (searchMatch(item[attr], $scope.query))
+                    return true;
+            }
+            return false;
+        });
+        // take care of the sorting order
+        if ($scope.sort.sortingOrder !== '') {
+            $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+        }
+        $scope.currentPage = 0;
+        // now group by pages
+        $scope.groupToPages();
+    };
+    
+  
+    // calculate page in place
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        
+        for (var i = 0; i < $scope.filteredItems.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+            }
+        }
+    };
+    
+    $scope.range = function (size,start, end) {
+        var ret = [];        
+        console.log(size,start, end);
+                      
+        if (size < end) {
+            end = size;
+            start = size-$scope.gap;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }        
+         console.log(ret);        
+        return ret;
+    };
+    
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+    
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+        }
+    };
+    
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    // functions have been describe process the data for display
+    $scope.search();
+    
+  
+          });
+
+     
+    }
+    
+    
+    $scope.dohvatiOtkljucane =function () {
+         
+       
+         
+         
+         
+       
+         
+         
+         
+          
+          
+          
+           $http.get("./responseJSON/zakljucani.php?dohvati=otkljucane")
+                .then(function (response) {
+                    $scope.items = response.data.records;  
+        console.log("zakljucani:");  console.log($scope.items);
+         
+                    
+                    $scope.boja = "#ABC864";
+                  $scope.gget = "zakljucaj";
+          $scope.akcija = "ZAKLJUČAJ";    
+    $scope.prikazKorisnikaOTK = true;
+$scope.itemsPerPage =$scope.items[0].Stranicenje;
+console.log("bok stranicenje");
+console.log ();
+
+
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    // init the filtered items
+    $scope.search = function () {
+        $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+            for(var attr in item) {
+                if (searchMatch(item[attr], $scope.query))
+                    return true;
+            }
+            return false;
+        });
+        // take care of the sorting order
+        if ($scope.sort.sortingOrder !== '') {
+            $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+        }
+        $scope.currentPage = 0;
+        // now group by pages
+        $scope.groupToPages();
+    };
+    
+  
+    // calculate page in place
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        
+        for (var i = 0; i < $scope.filteredItems.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+            }
+        }
+    };
+    
+    $scope.range = function (size,start, end) {
+        var ret = [];        
+        console.log(size,start, end);
+                      
+        if (size < end) {
+            end = size;
+            start = size-$scope.gap;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }        
+         console.log(ret);        
+        return ret;
+    };
+    
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+    
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+        }
+    };
+    
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    // functions have been describe process the data for display
+    $scope.search();
+    
+  
+          });
+
+     
+    }
+    
+    
+      
+  $scope.printDiv = function(divName) {
+      
+        
+        console.log('klik na print '+ divName);
+  var printContents = document.getElementById(divName).innerHTML;
+  var popupWin = window.open('', '_blank', 'width=300,height=300');
+  popupWin.document.open();
+  popupWin.document.write('<html><head><link rel="stylesheet" media="print" type="text/css" href="../css/podrucjaInteresa.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+ console.log("bok");
+      popupWin.document.close();
+} 
+
+$scope.prikazIzmjene = false;
+ $scope.izmjenaPopuni = function(item) {
+     
+      console.log(item.currentTarget);
+        console.log(item.currentTarget.getAttribute("data-id"));
+        var id = item.currentTarget.getAttribute("data-id");
+        var obj = JSON.parse(id);
+        console.log("is korisnika: "+obj.korisnik_id);
+        
+        $scope.korisnik_id = obj.korisnik_id;
+        $scope.ime = obj.ime;
+        $scope.prezime = obj.prezime;
+        $scope.korisnicko_ime = obj.korisnicko_ime;
+        $scope.email = obj.email;
+        $scope.lozinka = obj.lozinka;
+        $scope.lozinka_SHA= obj.lozinka_SHA;
+        $scope.tip_korisnika = obj.tip_korisnika;
+        $scope.verifikacijski_kod = obj.verifikacijski_kod;
+        $scope.verificirano = obj.verificirano;
+        $scope.broj_neuspjesnih_prijava = obj.broj_neuspjesnih_prijava;
+        $scope.prijavaDvaKoraka = obj.prijavaDvaKoraka;
+        $scope.salt = obj.salt;
+        $scope.dvaKorakaKod = obj.dvaKorakaKod;
+        $scope.vrijemeRegistracije = obj.vrijemeRegistracije;
+        $scope.vrijemeSlanjaKoda = obj.vrjemeSlanjaKoda;
+$scope.slika = obj.slika;
+
+
+$scope.prikazIzmjene = true;
+$scope.shouldBeOpen = true;
+
+} 
+    /*CRUD*/
+    
+    
+    
+      $scope.prikazTablice = false;
+      
+      $scope.prikazIzmjenaAktivnosti = function($e){
+           
+          console.log("klik na izmjenu"+$e);
+          
+          
+      };
+      
+      
+      
+    $scope.prikaziTablicu=function ($tablica) {
+         
+       
+         
+         
+         
+       
+         console.log("preneseni podatak: "+$tablica); 
+         
+         
+          
+          
+          
+           $http.get("./responseJSON/crud.php?dohvati="+$tablica)
+                .then(function (response) {
+                    $scope.items = response.data.records;  
+        console.log("zakljucani:");  console.log($scope.items);
+         
+                    
+                   
+    $scope.prikazTablice  = true;
+$scope.itemsPerPage =$scope.items[0].Stranicenje;
+console.log("bok stranicenje");
+console.log ();
+
+
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    // init the filtered items
+    $scope.search = function () {
+        $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+            for(var attr in item) {
+                if (searchMatch(item[attr], $scope.query))
+                    return true;
+            }
+            return false;
+        });
+        // take care of the sorting order
+        if ($scope.sort.sortingOrder !== '') {
+            $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+        }
+        $scope.currentPage = 0;
+        // now group by pages
+        $scope.groupToPages();
+    };
+    
+  
+    // calculate page in place
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        
+        for (var i = 0; i < $scope.filteredItems.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.filteredItems[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+            }
+        }
+    };
+    
+    $scope.range = function (size,start, end) {
+        var ret = [];        
+        console.log(size,start, end);
+                      
+        if (size < end) {
+            end = size;
+            start = size-$scope.gap;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }        
+         console.log(ret);        
+        return ret;
+    };
+    
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+    
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+        }
+    };
+    
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    // functions have been describe process the data for display
+    $scope.search();
+    
+  
+          });
+
+     
+    }
+    
+    
 });
+
+
+
 
 
 fessmodule.$inject = ['$scope', '$filter'];
