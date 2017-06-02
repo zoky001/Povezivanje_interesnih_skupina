@@ -65,7 +65,14 @@ body{ background-color:{$body};
    {/if}     
 </style>
     <body>    
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/hr_HR/sdk.js#xfbml=1&version=v2.9";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <header>
     
     
@@ -205,6 +212,10 @@ body{ background-color:{$body};
                     <a href="moja_podrucja_interesa.php"> <button class="btnNav"> Moja područja interesa</button> </a>
                     <a href="pregled_kupona.php">  <button class="btnNav"> Pregled kupona</button> </a>
                     <a href="sakupljeni_bodovi.php">  <button class="btnNav"> Sakupnjanje bodova</button> </a>
+                    
+                     <a href="postavkeProfila.php">  <button class="btnNav">Moj profil</button> </a>
+                    
+                    
                     <a  href="{$odjava}">  <button class="btnNavD"> Odjava</button> </a>
                     </div>
                     {/if}

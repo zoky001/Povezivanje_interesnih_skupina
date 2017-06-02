@@ -3,9 +3,11 @@
 
 
 
-        <div class="tijelo">
+        <div ng-app="pregledbodova" ng-controller="bodovi" class="tijelo">
 
+            
 
+           
             <div class="section">
 
                 <div class="naslov">
@@ -16,59 +18,93 @@
 
                 <div style="width: 100%;">
                     <div class="glavniDio">
+                            <form style="text-align: left"  class="provjraKupona"  name="ProvjeraKoda"  
+                                  >
+
+         <div style="margin-left: 33%"> 
 
 
-                        <table class="tablica1" >
-                            <caption class="tablica1">Ispis bodova</caption>
+<br>
 
-                            <thead class="tablica1">
-                                <tr  class="tablica1_zaglavlje ">
-                                    <th> Akcija</th>
-                                    <th>Vrijeme</th>
-                                    <th>Aktivnost</th>
-                                    <th> Opis aktivnosti</th>
-                                    <th> Broj bodova</th>
+   <input ng-click="prikazSve({$ID},'sve')" style="margin-left: -25%"class="gumb" type="submit" value="Prikaži sve zapise"> <br>
+ <input ng-click="prikazSve({$ID},'zarada')" style="margin-left: -25%"class="gumb" type="submit" value="Prikaži zarađene"> <br>
+  <input ng-click="prikazSve({$ID},'kupnja')" style="margin-left: -25%"class="gumb" type="submit" value="Prikaži potrošene"> <br>
+
+         </div>
 
 
 
-                                </tr>
-                            </thead>
-
-                            <tbody class="tablica1">
 
 
-  {foreach from=$ispis  item=elem}
-      <tr class="tablica1_redak1" {if $elem['Vrsta_prometa'] eq kupnja }style="background-color: #FF806F; "  {/if}>
-                                   
-   <td>
-                                       {$elem['Vrsta_prometa']|upper}
-                                    </td>
-                                    <td>
-                                        {$elem['Datum']|date_format:"%d.%m.%Y."}
-                                    </td>
 
-                                    <td>
-                                      {$elem['Naziv_aktivnosti']}
-                                    </td>
+                            </form>
+  <br>
+ <table ng-show="prikazTablice" style = "margin-left: 0;width:100%" class="tablica1">
+                                     <caption class="tablica1">Tablica "korisnici"</caption>
+                <thead class="tablica1">
 
-                                    <td>
-                                        {$elem['Opis_aktivnosti']}
-                                    </td>
-
-                                    <td>
-                                       {$elem['Kolicina_bodova']}
-                                    </td>
+                    <tr class="tablica1_zaglavlje sh480">
+                        <th  custom-sort order="'id'" sort="sort">Akcija &nbsp;</th>
+                        <th  custom-sort order="'id'" sort="sort">Vrijeme&nbsp;</th>
+                        <th  custom-sort order="'name'" sort="sort">Aktivnost&nbsp;</th>
+                       <th  custom-sort order="'name'" sort="sort">Opis aktivnosti&nbsp;</th>
+                         <th  custom-sort order="'name'" sort="sort">Broj bodova&nbsp;</th>
+                      
+                     
+                    
+                       
+                       
+                    </tr>
+                </thead>
+                <tfoot class="tablica1">
+                    <td colspan="6">
+                        <div style="width:50%; margin-left:29%; margin-bottom: 5px;margin-top: 5px" >
+                            <ul>
+                                <li class="preNext" 
                                     
+                                    ng-class="{ disabled: currentPage == 0 }" 
+                                    
+                                    >
+                                    <a href ng-click="prevPage()">« Prethodna</a>
+                                </li>
+                            
+                                <li class="preNext" ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                   
+                                    ng-class="{ active: n == currentPage }"
+                                    
+                                    
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                             
+                                <li class="preNext"
+                                    
+                                    ng-class="{ disabled: (currentPage) == pagedItems.length - 1 }"
+                                     >
                                   
+                                    <a href ng-click="nextPage()">Sljedeća»</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+              
+                <tbody class="tablica1">
+                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                      
+                        <td>{{item.Akcija}}</td>
+                         <td>{{item.Vrijeme}}</td>
+                              <td>{{item.Aktivnost}}</td>
+                              
+                               <td>{{item.Opis}}</td>
+                         <td>{{item.Broj}}</td>
+                           
+                    </tr>
+                </tbody>
+            </table>
 
-                                </tr>
 
-                      {/foreach}         
-
-
-
-                            </tbody>
-                        </table>  
+                      
 
                     </div>
 

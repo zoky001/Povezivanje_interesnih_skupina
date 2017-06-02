@@ -15,7 +15,7 @@ $id = $_GET['id'];
 
 
 
-$ispis = array();
+$ispisdisk = array();
 
 
 
@@ -27,7 +27,7 @@ try {
 
     while ($row = $stmt->fetch()) {
 
-        array_push($ispis, $row);
+        array_push($ispisdisk, $row);
     }
 
 
@@ -47,7 +47,7 @@ try {
 
 
 $outp = "";
-    foreach ($ispis  as $value) {
+    foreach ($ispisdisk  as $value) {
       
        
        // echo $value['Naziv'];

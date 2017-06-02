@@ -2,12 +2,14 @@
 
 
 
-
+if (isset($sat) && $sat) {
+    $smarty->assign('sat', $sat);
+}
 
 
 $smarty->assign('aktivnaSkriptaa', $_SERVER['PHP_SELF']);
 
 
 
-$smarty->display('predlosci/_footer.tpl');
+$smarty->display('predlosci/foot.tpl');
 ?>

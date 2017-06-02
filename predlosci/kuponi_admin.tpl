@@ -97,7 +97,11 @@
 
  <input   style="height: 30px" type="file" name="fileToUpload3" id="fileToUpload">
 
+    <label  id = "Lnaziv" for="naziv">URL video (samo YouTube):      
+                               </label>
 
+                                <input   type="url" id="video"  name="video"  value="{$Tema['Video']}" required > <br> 
+                                
 
 
                                 <input class= "gumb" type ="submit"  name="izmjenaKupona" value="Izmjeni kupon">

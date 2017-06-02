@@ -142,6 +142,7 @@ function provjeraCoockie() {
     $smarty->assign('coockieNeVrijediIF', $coockieNeVrijedi);
 }
 
+$sat = true;
 include_once 'footer.php';
 ?>
 

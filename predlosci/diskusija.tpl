@@ -25,10 +25,10 @@
         <p>{$Diskusija['Opis_pravila']}</p>
        
         
-        <button type="button" class="">Like</button> 
+         
        
         
-        <button type="button" class=""> Comment</button> 
+        <a href="#newKomentar"><button type="button" class=""> Komentiraj </button> </a>
     </div>  
             {foreach from=$ispisKomentara item=elem}
 
@@ -43,11 +43,14 @@
         <hr>
         <p>{$elem['Tekst']}</p>
        
-        
-        <button type="button" class="">Like</button> 
+        {if $pravo || $korisnikID eq $elem['ID_korisnika']}
+        <a href="diskusija.php?IDdiskusije={$Diskusija['ID_diskusije']}&obrisi=komentari&ID={$elem['ID_komentara']}"> <button type="button" class="">Obrisi</button> </a>
        
+        {/if}
         
+        <!--
         <button type="button" class=""> Comment</button> 
+        -->
     </div>  
 
 

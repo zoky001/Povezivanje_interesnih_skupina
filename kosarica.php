@@ -14,7 +14,7 @@ if (provjeraPrijaveKorisnika() == null) {
 dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
 
 dodajUKosaricu();
-
+brisiKosarica();
 
 $naslov = "Košarica";
 include_once 'header.php';
@@ -381,6 +381,47 @@ function dodajUKosaricu() {
     }
 }
 
+
+function brisiKosarica(){
+    global $dbc;
+    global $smarty;
+    if (!empty($_GET['obrisi']) && $_GET['obrisi']=='kosarica' && !empty($_GET['ID'])) {
+        
+        
+$sql = "DELETE FROM `kosarica` 
+WHERE `ID_stavke` = :ID";
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+           
+         $stmt->bindParam(':ID', $_GET['ID'], PDO::PARAM_INT);
+       
+         
+         if ($stmt->execute()) {
+             dnevnik_zapis(38);
+             $smarty->assign("uspjehBrisanje",true);
+         }
+         else{
+             $smarty->assign("uspjehBrisanje",false);
+         }
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        }
+        
+        
+    }
+ 
+}
 $smarty->display('predlosci/kosarica.tpl');
 include_once 'footer.php';
 ?>

@@ -68,18 +68,14 @@
                             <br>
                             
                             {if isset({$ispisKupona['Video']}) && $ispisKupona['Video']}
-                            <video width="400" controls>
-                                <source src="https://www.youtube.com/watch?v=90JmmMbFKfw" type="video/mp4">
-                                <source src="https://www.youtube.com/watch?v=90JmmMbFKfw" type="video/ogg">
-                                Your browser does not support HTML5 video.
-                            </video>
-                            <br>
-                            <hr style="width: 100%">
+                           
+                            
                             <br>
 
-                            <iframe width="420" height="315"
-                                    src="https://www.youtube.com/embed/XGSy3_Czz8k">
-                            </iframe>
+                            
+                           <iframe width="420" height="345" 
+              src="{$ispisKupona['Video']}" frameborder="0" allowfullscreen >
+</iframe>
                             
                             {/if}
                             <br>

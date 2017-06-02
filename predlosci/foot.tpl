@@ -9,16 +9,26 @@
                     <figcaption>Dokumentacija</figcaption>
                 </figure> 
             </div>
+        {if isset($sat) && $sat}
 <div style= "visibility: block;" class = "footer_left">
              
-                   
+                
                    <p style="width: 50%;margin-left:25%; min-width:200px  " class = " vrijeme_izrade" ><b>{{ clock  | date:'HH:mm:ss' }}</b> <br>
              <b>{{ clock  | date:'dd.MM.yyyy.' }}</b></p>
-
-
-
-            </div>
+                
+               
+   </div>
+ {else}
+<div style= "visibility: hidden;" class = "footer_left">
              
+                
+                   <p style="width: 50%;margin-left:25%; min-width:200px  " class = " vrijeme_izrade" ><b>{{ clock  | date:'HH:mm:ss' }}</b> <br>
+             <b>{{ clock  | date:'dd.MM.yyyy.' }}</b></p>
+                
+             
+   </div>
+         
+        {/if}       
             <div class = "footer_left">
                 <figure >
                     <a  href="dokumentacija.php?show=about"><img   src="slike/About-me.jpg" width = "150" height="150" alt="O meni"></a> 

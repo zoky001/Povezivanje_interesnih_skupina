@@ -41,6 +41,16 @@ and open the template in the editor.
 
     </head>
     <body ng-app="prijava"  ng-controller="cjelo" >
+        
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/hr_HR/sdk.js#xfbml=1&version=v2.9";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
         <!-- Header neprijavljeni -->
         <header class="header" id="myHeader"  >
             <!--<i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-button w3-theme"></i> -->
@@ -49,6 +59,7 @@ and open the template in the editor.
                 <h1 class="white" style="font-size: 36pt">PRIDRUŽI NAM SE...</h1>
                 <div >
                     <button ng-click="otovoriRegistraciju()"class="btnPrijava" id="myBtn"> Registracija</button> 
+               
                     <button ng-click="otovoriPrijavu()" class="btnReg" id="myBtn1"> Prijava</button> 
                 </div>
             </div>
@@ -107,9 +118,9 @@ and open the template in the editor.
         {/if}
         
         
+        <div ng-show="{if (isset($otvoriPrijavu) && $otvoriPrijavu) || (isset($PrijavaDvaKoraka) && $PrijavaDvaKoraka) || (isset($postojiGreskaPrijava) && $postojiGreskaPrijava)}!{/if}showPrijava" >
 
-
-        <form  ng-show="{if (isset($otvoriPrijavu) && $otvoriPrijavu) || (isset($PrijavaDvaKoraka) && $PrijavaDvaKoraka) || (isset($postojiGreskaPrijava) && $postojiGreskaPrijava)}!{/if}showPrijava" ng-controller="kontrolaPrijava" class="forma" id="prijava1" style="width:50%; margin-left: 25%"  method="post" name="prijava"  
+        <form  ng-controller="kontrolaPrijava" class="forma" id="prijava1" style="width:50%; margin-left: 25%"  method="post" name="prijava"  
                action="prijava.php">
 
 
@@ -136,12 +147,45 @@ and open the template in the editor.
 
             <input class="gumb" type="submit" name="submit" value="Prijavi se">
 
-
+  </form>
             {if (isset($postojiGreskaPrijava) && $postojiGreskaPrijava)}
           
 
 
                 <div class="greskeRegistracija" style="width:50%;margin-left: 25%"> 
+                    
+                    
+                     <form   class="formaNovaDiskusija" method="post" name="Diskusija"  
+                                  action="prijava.php">
+<div style="text-align: left;">
+                               
+
+    <h3 style="text-align: center">Zaboravljena lozinka?? Poslat ćemo Vam je na mail!</h3>
+                                   <label  id = "Lnaziv" for="naziv">Email:  
+                                    
+                               </label>
+                                     <input  ng-model="email" type="email" id="naziv"  name="email"  value="" required > <br> 
+                                 
+                                   
+                                </div>
+                                
+                                
+                                
+                                <div style="">
+                                <input  class= "gumb" type ="submit"  name="zaboravljenaLozinka" value="Pošalji mi lozinku">
+                               </div>
+
+
+                            </form>
+                        
+                        
+                        
+                 
+                    
+                    
+                    
+                    
+                    
                     
 {foreach from=$Greska item=elem}
     
@@ -169,7 +213,7 @@ and open the template in the editor.
                     <strong>Lozinka:</strong> {$loz4} </p>
             </div>
 
-        </form>
+      </div>
         
         
       
@@ -366,11 +410,16 @@ and open the template in the editor.
 
 
         <section id="sadrzaj">
-
+            <p>
+             <div style="height: 150x; width: 300px;"class="fb-share-button" data-href="https://barka.foi.hr/WebDiP/2016_projekti/WebDiP2016x052/neprijavljeni.php" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                 <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbarka.foi.hr%2FWebDiP%2F2016_projekti%2FWebDiP2016x052%2Fneprijavljeni.php&amp;src=sdkpreparse">
+                     Podijeli</a>
+             </div>
+            </p>
 
             <div class="naslov">
-                <h1 >   Popis područja interesa </h1>
-
+                <h1 >   Popis područja interesa  </h1>
+     
             </div>
 
             <div id =popisPodrucja class = "popisPodrucja">

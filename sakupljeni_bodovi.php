@@ -19,7 +19,7 @@ include_once 'header.php';
 brojBodova();
 
 
-
+$smarty->assign('ID', korisnikID());
 
 
       

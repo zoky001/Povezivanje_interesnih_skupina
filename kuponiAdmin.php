@@ -152,7 +152,8 @@ $sql = "UPDATE `kuponi_clanstva`
 SET
 `Naziv_kupona`=:Naziv,
 `Opis_kupona`=:Opis,
-`Slika`=:Slika1
+`Slika`=:Slika1,
+`Video`=:video
 WHERE 
  `ID_kupona`= :ID";
 
@@ -160,9 +161,25 @@ WHERE
 
        try{
             $stmt = $dbc->prepare($sql);
+            
+            
+            if(isset($_POST['video']))
+{
+    $url = urldecode(rawurldecode($_POST['video']));
+    # https://www.youtube.com/watch?v=nn5hCEMyE-E
+    preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
+   
+    # nn5hCEMyE-E
+    if ($matches[1]) {
+            $url = "https://www.youtube.com/embed/". $matches[1]."?autoplay=1";
+    }
+ 
+}
              
              $stmt->bindParam(':ID',$_POST['IDkupona'] , PDO::PARAM_INT);
+      $stmt->bindParam(':video',$url, PDO::PARAM_STR);
      
+           
            
            
           // echo"<br><br><br><br><br>"

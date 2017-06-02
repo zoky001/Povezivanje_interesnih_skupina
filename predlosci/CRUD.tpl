@@ -1,6 +1,6 @@
 
 
-        <div ng-app="log" ng-controller="ctrlRead" class="tijelo"  >
+        <div ng-app="crud" ng-controller="ctrlRead" class="tijelo"  >
 
 
             <div class="section">
@@ -360,6 +360,34 @@
                             </form>
      
      <br>
+        <form ng-show="prikazIzmjeneAKT"  class="formaNovaDiskusija"  method="post" name="Diskusija"  
+              action="CRUD.php">
+            
+            
+             <div style="text-align: left;">
+                               
+
+                                <input style="display: none" ng-model="ID_aktivnosti" type="text" id="naziv"  name="ID_aktivnosti"  value="{{ID_aktivnosti}}" required > <br> 
+                                
+                                <label  id = "Lnaziv" for="naziv"> Naziv:      
+                               </label>
+
+                                <input  ng-model="naziv"  type="text" id="naziv"  name="naziv"  value="{{naziv}}" required > <br> 
+                                
+                                   <label  id = "Lnaziv" for="naziv">Opis:      
+                               </label>
+<input  ng-model="opis"  type="text" id="naziv"  name="opis"  value="{{opis}}" required > <br> 
+                                
+                               
+
+             </div>   
+  <div style="margin-left:-25%">
+                                <input style="margin-left:-25%" class= "gumb" type ="submit"  name="izmjenaAktivnosti" value="Izmjeni">
+                                <br>
+                                <input style="margin-left:-25%" class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
+                                </div>
+            
+        </form>
      
      <table ng-show="prikazTablice" style = "margin-left: 0;width:100%" class="tablica1">
                                      <caption class="tablica1">Tablica "Aktivnosti"</caption>
@@ -407,9 +435,13 @@
               
                 <tbody class="tablica1">
                     <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                      
+                        
+              
+                        
                         <TD>
                             <A href="CRUD.php?obrisi=aktivnosti&ID={{item.ID_aktivnosti}}">OBRISI</A>
-                            
+                               <a  ng-click="izmjenaPopuniAKT($event)"  data-id="{{item}}" href="">IZMJENI</a>
                             <!--
                             <a ng-click="prikazIzmjenaAktivnosti({{item}})" href="">IZMJENI</a>
                             
@@ -420,7 +452,7 @@
                               <td>{{item.Opis_aktivnosti}}</td>
                       
                        
-                       
+                     
                     </tr>
                 </tbody>
             </table>
@@ -1377,333 +1409,11 @@
                                
     {/if}
     
-    {if isset($tipZapisa) && $tipZapisa}
     
-     <form style="text-align: left"  class="provjraKupona" method="post" name="ProvjeraKoda"  
-                                  >
-
-
-                                 <div class="naslov">
-                                
- <h3 >Pregled po tipu zapisa</h3> 
-                            </div>
-
-         <div style="margin-left: 33%"> 
-
-    <label  style="margin-left: -33%"id = "Lnaziv" for="kod">Tip aktivnosti:      
-                              </label>
-
-                                
-                                
-             <select name="aktivnost" ng-model="aktivnost"  style = "height: 30px"  required="">
-     
-                                    {if isset($ispisSvihAktivnosti) && $ispisSvihAktivnosti}
-                                  {foreach from=$ispisSvihAktivnosti  item=elem}
-
- 
-
-  <option  value="{$elem['ID_aktivnosti']}">{$elem['Naziv_aktivnosti']}</option>
-  
-                                  
-                                  {/foreach}     
-  {/if}
-</select>
-<br>
-
-
-
-
-                                <input ng-click="prikaziAktivnosti()" style="margin-left: -25%"class="gumb" name="provjeraKod" type="submit" value="Pregled"> <br>
-
-
-         </div>
-
-
-
-
-
-
-                            </form>
-    
-                                
-                               
-    {/if}
     
                     
     
-{if isset($bpa) && $bpa}
-    
-     <form style="text-align: left"  class="provjraKupona" method="post" name="ProvjeraKoda"  
-                                  >
 
-
-                                 <div class="naslov">
-                                
- <h3 >Statistika skupljenih i potrošenih bodova prema aktivnosti</h3> 
-                            </div>
-
-         <div style="margin-left: 33%"> 
-
-     <label  style="margin-left: -33%"id = "Lnaziv" for="kod">Aktivnosti:      
-                              </label>
-
-                                
-                                
-             <select name="aktivnost" ng-model="aktivnost"  style = "height: 30px"  required="">
-     
-                                 
-  <option  value="Zarada">Zarada bodova</option>
-  
-  <option  value="Kupnja">Trošenje bodova</option> 
-                                 
- 
-</select>
-<br>
-
-
-
-
-                                <input ng-click="prikazBpA()" style="margin-left: -25%"class="gumb" name="provjeraKod" type="submit" value="Pregled"> <br>
-
-
-         </div>
-
-
-
-
-
-
-                            </form>
-    
-                                
-                               
-    {/if}
- 
-<div ng-show="prikaziStatistikaBPA">
-    <table  style = "margin-left: 0;width:100%" class="tablica1">
-                                     <caption class="tablica1">Prikaz statistike bodova po aktivnosti</caption>
-                <thead class="tablica1">
-
-                    <tr class="tablica1_zaglavlje sh480">
-                        <th  style="width:200px" custom-sort order="'id'" sort="sort">Aktivnost&nbsp;</th>
-                        <th  custom-sort order="'name'" sort="sort">{{aktivnost}}&nbsp;</th>
-                       
-                    </tr>
-                </thead>
-                <tfoot class="tablica1">
-                    <td colspan="6">
-                        <div style="width:50%; margin-left:29%; margin-bottom: 5px;margin-top: 5px" >
-                            <ul>
-                                <li class="preNext" 
-                                    
-                                    ng-class="{ disabled: currentPage == 0 }" 
-                                    
-                                    >
-                                    <a href ng-click="prevPage()">« Prethodna</a>
-                                </li>
-                            
-                                <li class="preNext" ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
-                                   
-                                    ng-class="{ active: n == currentPage }"
-                                    
-                                    
-                                ng-click="setPage()">
-                                    <a href ng-bind="n + 1">1</a>
-                                </li>
-                             
-                                <li class="preNext"
-                                    
-                                    ng-class="{ disabled: (currentPage) == pagedItems.length - 1 }"
-                                     >
-                                  
-                                    <a href ng-click="nextPage()">Sljedeća»</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tfoot>
-              
-                <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
-                     
-                        <td>{{item.Aktivnost}}</td>
-                         <td>{{item.Bodova}}</td>
-                       
-                        
-                       
-                       
-                    </tr>
-                </tbody>
-            </table>
-   
-                         
-                         
-                         
-<canvas style ="margin: 10px;" id="platno" width="1000" height="400">
-</canvas>
-                                        
-                         
-                         
-     <table  style = "margin-left: 0;width:100%" class="tablica1">
-              <thead class="tablica1">
-
-                    <tr class="tablica1_zaglavlje sh480">
-                        <th  style="width:200px" >Legenda&nbsp;</th>
-                      
-                    </tr>
-                </thead>
-               
-              
-                <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in boje">
-                     
-                     <td style ="background-color:{{item.boja}}; color:black">   {{item.naziv}}</td>
-                       
-                        
-                       
-                       
-                    </tr>
-                </tbody>
-            </table>                     
-
-</div>
-    
-{if isset($bpk) && $bpk}
-    
-     <form style="text-align: left"  class="provjraKupona" method="post" name="ProvjeraKoda"  
-                                  >
-
-
-                                 <div class="naslov">
-                                
- <h3 >Statistika skupljenih i potrošenih bodova korisnika</h3> 
-                            </div>
-
-         <div style="margin-left: 33%"> 
-
-     <label  style="margin-left: -33%"id = "Lnaziv" for="kod">Aktivnost:      
-                              </label>
-
-                                
-                                
-             <select name="aktivnost" ng-model="aktivnost"  style = "height: 30px"  required="">
-     
-                                 
-
-  <option  value="Zarada">Zarada bodova</option>
-  
-  <option  value="Kupnja">Trošenje bodova</option>                              
- 
-</select>
-<br>
-
-
-
-
-                                <input ng-click="prikazBpK()" style="margin-left: -25%"class="gumb" name="provjeraKod" type="submit" value="Pregled"> <br>
-
-
-         </div>
-
-
-
-
-
-
-                            </form>
-    
-                                
- 
-    
-    
-    
-    {/if}
-    
-    <div ng-show="prikaziStatistikaBPK" >
- <table  style = "margin-left: 0;width:100%" class="tablica1">
-                                     <caption class="tablica1">Prikaz statistike bodova po korisniku</caption>
-                <thead class="tablica1">
-
-                    <tr class="tablica1_zaglavlje sh480">
-                        <th  style="width:200px" custom-sort order="'id'" sort="sort">Korisnik&nbsp;</th>
-                        <th  custom-sort order="'name'" sort="sort">{{aktivnost}}&nbsp;</th>
-                       
-                    </tr>
-                </thead>
-                <tfoot class="tablica1">
-                    <td colspan="6">
-                        <div style="width:50%; margin-left:29%; margin-bottom: 5px;margin-top: 5px" >
-                            <ul>
-                                <li class="preNext" 
-                                    
-                                    ng-class="{ disabled: currentPage == 0 }" 
-                                    
-                                    >
-                                    <a href ng-click="prevPage()">« Prethodna</a>
-                                </li>
-                            
-                                <li class="preNext" ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
-                                   
-                                    ng-class="{ active: n == currentPage }"
-                                    
-                                    
-                                ng-click="setPage()">
-                                    <a href ng-bind="n + 1">1</a>
-                                </li>
-                             
-                                <li class="preNext"
-                                    
-                                    ng-class="{ disabled: (currentPage) == pagedItems.length - 1 }"
-                                     >
-                                  
-                                    <a href ng-click="nextPage()">Sljedeća»</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tfoot>
-              
-                <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
-                     
-                        <td>{{item.Korisnik}}</td>
-                         <td>{{item.Bodova}}</td>
-                       
-                        
-                       
-                       
-                    </tr>
-                </tbody>
-            </table>
-                         
- <canvas style ="margin: 10px;" id="platno1" width="1000" height="400">
-</canvas>
-                                        
-                         
-                         
-     <table  style = "margin-left: 0;width:100%" class="tablica1">
-              <thead class="tablica1">
-
-                    <tr class="tablica1_zaglavlje sh480">
-                        <th  style="width:200px" >Legenda&nbsp;</th>
-                      
-                    </tr>
-                </thead>
-               
-              
-                <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in boje">
-                     
-                     <td style ="background-color:{{item.boja}}; color:black">   {{item.naziv}}</td>
-                       
-                        
-                       
-                       
-                    </tr>
-                </tbody>
-            </table>  
-                         
-    </div>
                         </div>
 
 
@@ -1713,89 +1423,6 @@
 
 
 
-                    <!-- modal diskusije-->
-                    <div ng-show="prikaziModal && 0" id="myModalNovaDiskusija" style="display: block"class="modal">
-
-                        <!-- Modal content -->
-                        <div class="modal-content">
-                            <span ng-click="zatvoriModal()" class="close">&times;</span>
-
-
-
-                            <div class="naslov">
-                                <h1 >Novi kupon </h1>
-
-                            </div>
-   <div ng-show="Diskusija.naziv.$error.email2 || (Diskusija.danKraj.$invalid &&Diskusija.danKraj.$dirty )" class="greskeRegistracija" style=""> 
-
-                 
-
-                    <span ng-show="Diskusija.naziv.$error.email2" > Postojeći  naziv</span>
-
-                    <span ng-show="Diskusija.danKraj.$invalid" > Datum kraja je maji od početnog </span>
-                </div>
-
-                            <form style="clear:both"class="formaNovaDiskusija" id="novi_proizvod" method="post" name="Diskusija"  
-                                  action="kuponiAdmin.php" enctype="multipart/form-data"  >
-
-                                
-                               
-                                
-                                
-                                
-
-                                <label  id = "Lnaziv" for="naziv">Naziv kupona:      
-                                  
-                                </label>
-
-                                <input   ng-model="nazivDiskusije" type="text" id="naziv"  name="naziv"  required > <br> 
-                                <!--
-                                <input  ng-model="nazivDiskusije" type="text" id="naziv"  name="naziv" email2 required > <br> 
-                                
-                                   <span ng-show="Diskusija.naziv.$pending.email2">Provjera postojanja naziva...</span>
--->
-                                   
-                                   
-                           
-                                <label  id = "Lopis" for="opis">Opis:
-                               </label>  
-                                <label style="width: 95%">(za <b>podebljanje</b> teksta koristite: &lt;<b>b</b>&gt; tekst &lt;/<b>b</b>&gt;)</label>
-                                <label style="width: 95%">(za novi red koristite: &lt;<b>br</b>&gt;)</label>
-                                <textarea ng-model="opis" required class = "opis_area" id= "opis" name="opis" rows="5" cols="100" placeholder="Ovdje unesite opis kupona"></textarea><br>
-
-
-
- 
-
-                               
-
-                                <input ng-disabled="Diskusija.naziv.$invalid || Diskusija.danPoc.$invalid || Diskusija.danKraj.$invalid || Diskusija.opis.$invalid" class="gumb" type="submit" name="novoKupon" value="Pohrani kupon">
-
-                                <input class= "gumb" style = "color:red" id="reset1" type="reset" value=" Inicijaliziraj">
-
-
-
-                            </form>
-
-
-
-                            </ul>
-
-                            <div class="naslov" style="background: white">
-                                <button ng-click="zatvoriModal()" id="btnZatvori"> Zatvori pregled</button> 
-
-                            </div>
-
-
-
-
-
-
-
-
-                        </div>
-
-                    </div>
                 </div>
 
 

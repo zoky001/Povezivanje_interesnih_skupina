@@ -26,7 +26,7 @@ brisikupljenikupon();
 brisikuponClanstva();
 brisiPodrucja();
 brisikorisnika();
-
+updateAktivnosti();
 
 updateKorisnika();
 function brisiAktivnosti(){
@@ -523,6 +523,62 @@ WHERE
     }
  
 }
+
+function updateAktivnosti(){
+    global $dbc;
+    global $smarty;
+    if (!empty($_POST['izmjenaAktivnosti'])) {
+        
+        
+$sql = "UPDATE `aktivnosti` SET 
+
+`Naziv_aktivnosti`=:naziv,
+`Opis_aktivnosti`=:opis
+ WHERE 
+`ID_aktivnosti`= :ID";
+
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+            
+            //echo "<br><br><br><br><br><br>".$_POST['korisnicko_ime'];
+         //   echo "<br><br><br><br><br><br>".$_POST['korisnik_id'];
+            
+  
+      
+             $stmt->bindParam(':naziv', $_POST['naziv'], PDO::PARAM_STR);
+       $stmt->bindParam(':opis', $_POST['opis'], PDO::PARAM_STR);
+       
+   
+         $stmt->bindParam(':ID', $_POST['ID_aktivnosti'], PDO::PARAM_INT);
+       
+         
+         if ($stmt->execute()) {
+             dnevnik_zapis(38);
+             $smarty->assign("uspjehBrisanje",true);
+         }
+         else{
+             $smarty->assign("uspjehBrisanje",false);
+         }
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        }
+        
+        
+    }
+ 
+}
+
 
 
 

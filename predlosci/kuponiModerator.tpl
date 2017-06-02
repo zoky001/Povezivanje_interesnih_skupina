@@ -247,7 +247,7 @@
 
 
 
-                                <input style="margin-left: -20%"class="gumb" name="provjeraKod" type="submit" value="Provjeri valjanost"> <br>
+                                <input style="margin-left: 0%"class="gumb" name="provjeraKod" type="submit" value="Provjeri valjanost"> <br>
 
 
 

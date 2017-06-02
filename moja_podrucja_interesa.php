@@ -113,4 +113,6 @@ $sql = "INSERT INTO `odabrana_podrucja_interesa`(`ID_korisnika`, `ID_podrucja_in
     
     
 }
+
+$sat = true;
 include_once 'footer.php';?>

@@ -12,15 +12,64 @@ if (provjeraPrijaveKorisnika() == null) {
 }
 dnevnik_zapis(9); //uspjesna autorizacija reg korisnika
 zaradiBodove(korisnikID(),31, 1);
-?>
-        <!-- Header neprijavljeni -->
+
+
+brisiKomentar();
+
+function brisiKomentar(){
+    global $dbc;
+    global $smarty;
+    if (!empty($_GET['obrisi']) && $_GET['obrisi']=='komentari' && !empty($_GET['ID'])) {
         
         
-<?php 
+$sql = "DELETE FROM `komentari` 
+WHERE `ID_komentara` = :ID";
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+           
+         $stmt->bindParam(':ID', $_GET['ID'], PDO::PARAM_INT);
+       
+         
+         if ($stmt->execute()) {
+             dnevnik_zapis(38);
+             $smarty->assign("uspjehBrisanje",true);
+         }
+         else{
+             $smarty->assign("uspjehBrisanje",false);
+         }
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        }
+        
+        
+    }
+ 
+}
 if (!empty($_GET['IDdiskusije'])) {
   //  echo '<br><br><br><br><br><BR><br><br>emptiy';
   dizajn(vratiIDpodrucja($_GET['IDdiskusije']));  
 }
+
+if (provjeraUlogeBool(MODERATOR) || provjeraUlogeBool(ADMINISTRATOR)) {
+  $smarty->assign('pravo', TRUE);  
+}else{
+ $smarty->assign('pravo', FALSE);   
+    
+}
+ $smarty->assign('korisnikID', korisnikID());
+
+
 
 
 $naslov = "Diskusija";

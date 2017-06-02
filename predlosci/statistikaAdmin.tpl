@@ -1,6 +1,6 @@
 
 
-        <div ng-app="log" ng-controller="ctrlRead" class="tijelo"  >
+        <div ng-app="statistika" ng-controller="ctrlRead" class="tijelo"  >
 
 
             <div class="section">
@@ -192,6 +192,14 @@
     
     <button style="margin-left: -30%" class="gumb" name="provjeraKod" type="submit" ng-click="printDiv('i')" >Ispiši statistiku</button>
     <br>
+     <form method="post" action="pdf/pdfStatistika.php" target="_blank">
+            
+         <input style="display:none" name="aktivnosti" value="1">
+             
+         
+         <input style="display:none" name="statistika" value="{{pdfBPA}}">
+          <button style="margin-left: -30%" class="gumb" name="provjeraKod" type="submit"  >Preuzmi PDF</button>
+          </form>
 
 
 <div id="i">
@@ -341,6 +349,13 @@
         <br>
          <button style="margin-left: -30%" class="gumb" name="provjeraKod" type="submit" ng-click="printDiv('j')" >Ispiši statistiku</button>
     <br>
+          <br>
+          <form method="post" action="pdf/pdfStatistika.php" target="_blank">
+              
+              <input style="display:none" name="statistika" value="{{pdfBPK}}">
+               <input style="display:none" name="aktivnosti" value="0">
+          <button style="margin-left: -30%" class="gumb" name="provjeraKod" type="submit"  >Preuzmi PDF</button>
+          </form>
 
        <div id="j">    
  <table  style = "margin-left: 0;width:100%" class="tablica1">
@@ -399,7 +414,7 @@
                 </tbody>
             </table>
      </div>                    
- <canvas style ="margin: 10px;" id="platno1" width="1000" height="400">
+ <canvas style ="margin: 10px;" id="platno1" width="2000" height="400">
 </canvas>
                                         
                          

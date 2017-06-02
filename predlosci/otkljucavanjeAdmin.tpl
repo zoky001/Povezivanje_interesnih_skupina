@@ -1,6 +1,6 @@
 
 
-        <div ng-app="log" ng-controller="ctrlRead" class="tijelo"  >
+        <div ng-app="otkljucavanje" ng-controller="ctrlRead" class="tijelo"  >
 
 
             <div class="section">

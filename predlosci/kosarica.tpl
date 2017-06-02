@@ -107,10 +107,12 @@ function myFunctionispis() {
 
 
                             <h3>Artikli u  košarici</h3>
-
+<!--
                             <div >
                                 <button class="gumbKupi" style="width: 100%">Kupi sve u košarici </button>
                             </div>
+                            
+                            -->
 {foreach from=$ispis  item=elem}
                             <div class="kupon">
                                 <img src="{$elem['Slika']}"style="max-width: 100%;height: 200px;">
@@ -118,16 +120,19 @@ function myFunctionispis() {
 
                                 <div class="ikonaKupi">
                                     <button class="gumbKupnjaKupona" onclick="window.location.href = 'kupon.php?IDkupona={$elem['ID_kupona']}&IDpodrucja={$elem['ID_podrucja']}&kupljen=true'"> Pregled </button>
+                                    <button style="" class="gumbKupnjaKupona" onclick="window.location.href = 'kosarica.php?obrisi=kosarica&ID={$elem['ID_stavke']}'"> Obrisi </button>
+                                  
+                                    
                                     <form  action="kosarica.php" method="post">  
                                        
                                         <input name = "IDstavke" value="{$elem['ID_stavke']}" style="display: none">
                                             
                                             
                                         
-                                        <button class="gumbKupnjaKupona" type="submit" name="kupovina"> Kupi </button>
+                                        <button style="width: 93%" class="gumbKupnjaKupona" type="submit" name="kupovina"> Kupi </button>
                                     
                                             </form>
-
+                                
                                 </div>
 
 
@@ -151,3 +156,4 @@ function myFunctionispis() {
 
             </div>
   
+        </div>

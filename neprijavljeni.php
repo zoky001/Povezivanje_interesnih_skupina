@@ -157,4 +157,6 @@ if (empty($_COOKIE[$nazivCock])) {
     $smarty ->assign ('loz4','DvaKoraka12');  
 
 $smarty->display('predlosci/neprijavljeni.tpl');
+
+$sat = true;
 include_once 'footer.php';?>

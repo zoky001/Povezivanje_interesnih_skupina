@@ -23,3 +23,13 @@ var appPretplatniciModerator= angular.module("pretplatnici", ['ngAnimate'])
 var appKuponiModerator= angular.module("kuponiModerator", ['ngAnimate'])
 
 var fessmodule = angular.module('log', []);
+
+var sakupljanjeBodova= angular.module('pregledbodova', []);
+
+var crud= angular.module('crud', []);
+
+var footerr= angular.module('footer', []);
+
+var otkljucavanje = angular.module('otkljucavanje', []);
+
+var statistika = angular.module('statistika', []);

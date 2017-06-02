@@ -480,6 +480,56 @@ $smarty->assign('kor4', 'DvaKoraka');
 $smarty->assign('loz4', 'DvaKoraka12');
 
 
+if (!empty($_POST['zaboravljenaLozinka'])) {
+    
+  
+    
+    
+    $sql = "SELECT  lozinka FROM `korisnik` 
+WHERE `email` = :mail";
+  
+
+try {
+    $stmt = $dbc->prepare($sql);
+ $stmt->bindParam(':mail', $_POST['email'], PDO::PARAM_STR);
+    
+    $stmt->execute();
+    
+    if ($stmt->rowcount() == 1) {
+        $row = $stmt->fetch();
+        
+        
+          //echo '<br><br><br> zaboravljena lozinka'.$_POST['email']."--".$row[0];
+          
+           $mail_to = $_POST['email'];
+    $mail_from = "From: WebDiP_2017@foi.hr_ZoranHrncic";
+    $mail_subject = "Zaboravljena lozinka!";
+    $mail_body = "Pozdrav, lozinka je: ".$row['lozinka'];
+   
+
+    if (mail($mail_to, $mail_subject, $mail_body, $mail_from)){
+        
+        // echo '<br><br><br> poslan mail'.$_POST['email'];
+        
+    }
+        
+    }
+
+
+   
+
+
+
+
+    $stmt->closeCursor();
+} catch (PDOException $e) {
+    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+}
+    
+    
+    
+}
+
 include_once 'neprijavljeni.php';
 
 include_once 'footer.php';

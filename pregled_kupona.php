@@ -127,5 +127,7 @@ $smarty->assign('ispisKupona',  $ispisKupona);
 
 
 $smarty->display('predlosci/pregledKupona.tpl');
+
+$sat = true;
 include_once 'footer.php';?>
         
