@@ -58,6 +58,7 @@
                     <a href="dokumentacija.php?show=about">  <button  style="background: #5CFF5A" class="btnNavL"> O meni</button> </a>
                     
                      <a href="dokumentacija.php?show=era">  <button class="btnNav"> ERA model</button> </a>
+                      <a href="dokumentacija.php?show=mapa">  <button class="btnNav"> Mapa mjesta</button> </a>
                     <a href="dokumentacija.php?show=opisPZ"> <button class="btnNav"> Opis projektnog zadatka </button> </a>
                     <a href="dokumentacija.php?show=opisPR"> <button class="btnNav"> Opis projektnog rješenja</button> </a>
                     <a href="dokumentacija.php?show=popisSkripti">  <button class="btnNav"> Popis skripti</button> </a>
@@ -89,6 +90,19 @@
                         <img   class = "slika_proizvoda"  src="slike/era.png"  alt="era" style="height: 800px; width: 90%;">
                     </a>
                     <figcaption>Era model</figcaption>
+                </figure>
+                
+                <br>
+                <div class="naslov">
+                <h1 >  Navigacijski dijagram </h1>
+
+            </div>
+                 <figure >
+
+                    <a href="slike/navigacijski_dijagram.png" target="_blank">
+                        <img   class = "slika_proizvoda"  src="slike/navigacijski_dijagram.png"  alt="era" style="height: 800px; width: 90%;">
+                    </a>
+                    <figcaption>Navigacijski dijagram</figcaption>
                 </figure>
                
 
@@ -658,6 +672,127 @@
                      <h3><b>fpdf</b></h3>
                 <p>
                     - biblioteka za PHP koja služi za generiranje PDF datoteke
+                </p>
+                
+               
+                
+      
+            </article>
+               
+
+         
+
+             
+            </div>
+
+
+
+
+        </section>
+
+{/if}
+
+{if isset($mapa) && $mapa}
+        <section id="sadrzaj">
+             
+
+
+            <div class="naslov">
+                <h1 >  Popis mapa</h1>
+
+            </div>
+
+            <div id =popisPodrucja class = "popisPodrucja">
+<!--
+                  <div >
+                                <a target="_blank" href="dokumentacija/pis.pdf">  <button class="gumbKupi" style="width: 100%"> Specifikacija zahtjeva - Povezivanje interesnih skupina</button></a>
+                  </div>
+                    -->        
+                
+                
+				
+			 <article class="omiljeni_proizvod">
+                
+               
+                             
+                            
+                <p class = "opis_proizvoda">  
+                    </p>
+                    
+                    	
+                    
+                    
+                <h3><b>CommonClass</b></h3>
+                <p>
+                    - mapa u kojoj se nalazi zajednička klasa za rad s bazom podataka
+                </p>
+                <hr>
+                     <h3><b>CSS</b></h3>
+                <p>
+                   - sadrži datoteke stilskih uputa
+                </p>
+                
+                <hr>
+                     <h3><b>Dokumentacija</b></h3>
+                <p>
+                    - sadržava dva *pdf dokumenta koji se otvaraju uz dokumentaciju projekta
+                </p>
+                 <hr>
+                     <h3><b>js</b></h3>
+                <p>
+                   - sadrži Javascript datoteke
+                </p>
+                
+                <hr>
+                     <h3><b>Okvir</b></h3>
+                <p>
+                    - sadrži aplikacijski okvir i sve njemu za rad potrebne datoteke
+                </p>
+                
+                
+                  <hr>
+                     <h3><b>pdf</b></h3>
+                <p>
+                   - sadrži vanjske datoteke za kreiranje pdf dokumenta, te vlastite skripte za pdf
+                </p>
+                
+                <hr>
+                     <h3><b>Predlošci</b></h3>
+                <p>
+                    - mapa Smarty predložaka za čitavi projekt
+                </p>
+                 <hr>
+                     <h3><b>Privatno</b></h3>
+                <p>
+                   -  mapa zaštičena .htaccess datotekom
+                </p>
+                
+                <hr>
+                     <h3><b>ResponseJSON</b></h3>
+                <p>
+                    - sadrži php skripte koje vraćaju JSON zapis kod korištenja AJAX-a
+                </p>
+                
+                
+                
+                
+                
+                
+                  <hr>
+                     <h3><b>Slike</b></h3>
+                <p>
+                   - sadrži sve slike koje se javljaju u projektu
+                </p>
+                
+                <hr>
+                     <h3><b>templates_c</b></h3>
+                <p>
+                    - od smarty-a
+                </p>
+                 <hr>
+                     <h3><b>Vanjske datoteke</b></h3>
+                <p>
+                   -  smarty datoteke
                 </p>
                 
                

@@ -211,8 +211,12 @@
                                 
      
      <br>
+     <div ng-show="prikazTablice">
+     <p>  
+                                   <label  style="width: 20%"id = "Lnaziv" for="naziv">Traži:      
+                               </label> <input type="text" ng-model="test"></p>
      <div style="overflow: scroll; max-width: 100%">
-     <table ng-show="prikazTablice" style = "margin-left: 0;width:100%" class="tablica1">
+     <table  style = "margin-left: 0;width:100%" class="tablica1">
                                      <caption class="tablica1">Tablica "korisnici"</caption>
                 <thead class="tablica1">
 
@@ -281,7 +285,7 @@
                 </tfoot>
               
                 <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse  | filter:test">
                         <TD>
                             <A href="CRUD.php?obrisi=korisnici&ID={{item.korisnik_id}}">OBRISI</A>
                               <a  ng-click="izmjenaPopuni($event)"  data-id="{{item}}" href="">IZMJENI</a>
@@ -323,7 +327,7 @@
                     
  </div>
     
-                                
+     </div>                              
                                
     {/if}                                
                                    

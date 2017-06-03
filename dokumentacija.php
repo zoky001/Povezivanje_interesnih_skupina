@@ -127,6 +127,9 @@ elseif (!empty($_GET['show']) && $_GET['show'] == 'tech') {
    elseif (!empty($_GET['show']) && $_GET['show'] == 'about') {
  $smarty->assign('about',  true);
 }
+   elseif (!empty($_GET['show']) && $_GET['show'] == 'mapa') {
+ $smarty->assign('mapa',  true);
+}
     
     
     

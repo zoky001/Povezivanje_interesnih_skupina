@@ -135,7 +135,7 @@ body{ background-color:{$body};
     <ul style="float: right; margin-left: -5%">
         
         <li style="border-left: none; margin-top: -15px; ">
-            <a> <b>Administrator:</b>  &nbsp;&nbsp;</a>
+            <a> <b>Administrator</b>  &nbsp;&nbsp;</a>
         </li>
         
     </ul>

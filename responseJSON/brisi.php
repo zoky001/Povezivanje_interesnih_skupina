@@ -12,51 +12,8 @@ if (!empty($_GET['dohvati']) && $_GET['dohvati'] == 'blokiraniKorisnici') {
     //echo $od."<br>".$do."<br";
       $sql= "SELECT * FROM `blokiraniKorisnici` WHERE 1";
        
-$ispis = array();
-
-
-
-try {
-    $stmt = $dbc->prepare($sql);
-  //$stmt->bindParam(':promet', $_GET['promet'], PDO::PARAM_STR);
-   
-    $stmt->execute();
-$str = stranicenje();
-//
-// show object properties
-//echo $herbie->model;
-
-    while ($row = $stmt->fetch()) {
-      //  $ar = object();"Stranicenje"=>$str;
-        $row += array("Stranicenje" => $str);
-        array_push($ispis, $row);
-    }
-
-
-
-
-    $stmt->closeCursor();
-} catch (PDOException $e) {
-    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
-}
-
-
-
-
-
-if(count($ispis)>0){
-    
- $myJSON = json_encode($ispis); 
-} else {
-       $row = array("Stranicenje" => $str);
-        array_push($ispis, $row);
-        $myJSON = json_encode($ispis); 
-}
-
-$outp ='{"records":'.$myJSON.'}';
-echo $outp;
        
-/*
+
 
 $ispis = array();
 
@@ -200,7 +157,7 @@ $outp ='{"records":['.$outp.']}';
 echo($outp);
 
 
-    */
+    
     
 }
 else if (!empty($_GET['dohvati']) && $_GET['dohvati'] == 'diskusije'){
@@ -213,51 +170,6 @@ else if (!empty($_GET['dohvati']) && $_GET['dohvati'] == 'diskusije'){
        $sql= "SELECT * FROM `diskusije` WHERE 1";
 
 
-$ispis = array();
-
-
-
-try {
-    $stmt = $dbc->prepare($sql);
-  //$stmt->bindParam(':promet', $_GET['promet'], PDO::PARAM_STR);
-   
-    $stmt->execute();
-$str = stranicenje();
-//
-// show object properties
-//echo $herbie->model;
-
-    while ($row = $stmt->fetch()) {
-      //  $ar = object();"Stranicenje"=>$str;
-        $row += array("Stranicenje" => $str);
-        array_push($ispis, $row);
-    }
-
-
-
-
-    $stmt->closeCursor();
-} catch (PDOException $e) {
-    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
-}
-
-
-
-
-
-if(count($ispis)>0){
-    
- $myJSON = json_encode($ispis); 
-} else {
-       $row += array("Stranicenje" => $str);
-        array_push($ispis, $row);
-}
-
-$outp ='{"records":'.$myJSON.'}';
-echo $outp;
-       
-       
-/*
 $ispis = array();
 
 
@@ -326,7 +238,7 @@ $outp ='{"records":['.$outp.']}';
 
 echo($outp);
 
-*/
+
     
     
 }
@@ -494,7 +406,10 @@ echo($outp);
     
 }
 else if (!empty($_GET['dohvati']) && $_GET['dohvati'] == 'komentari'){
-        //echo $od."<br>".$do."<br";
+    
+     
+    
+    //echo $od."<br>".$do."<br";
        
        
        $sql= "SELECT * FROM `komentari` WHERE 1";
@@ -542,45 +457,7 @@ if(count($ispis)>0){
 
 $outp ='{"records":'.$myJSON.'}';
 echo $outp;
-    
-    //echo $od."<br>".$do."<br";
-       
-   /*
-       $sql= "SELECT * FROM `komentari` WHERE 1";
 
-
-$ispis = array();
-
-
-
-try {
-    $stmt = $dbc->prepare($sql);
-  //$stmt->bindParam(':promet', $_GET['promet'], PDO::PARAM_STR);
-   
-    $stmt->execute();
-//$str = stranicenje();
-
-    while ($row = $stmt->fetch()) {
-
-       // array_push($ispis, $row);
-        
-       // $row += array("Stranicenje" => $str);
-        array_push($ispis, $row);
-    }
-
-
-
-
-    $stmt->closeCursor();
-} catch (PDOException $e) {
-    trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
-}
-*/
-/*
-$myJSON = json_encode($ispis);
-
-echo $myJSON;
-*/
 /*
 $str = stranicenje();
 
@@ -622,8 +499,8 @@ $outp ='{"records":['.$outp.']}';
 echo($outp);
 
 
-    
     */
+   
 }
 else if (!empty($_GET['dohvati']) && $_GET['dohvati'] == 'kosarica'){
     

@@ -37,6 +37,10 @@
                                 <h3 > Svi zapisi dnevnika </h3>
 
                             </div>
+                                
+                                  <p>  
+                                     <label  style="width: 20%"id = "Lnaziv" for="naziv">Traži:      
+                               </label> <input type="text" ng-model="test"></p>
                                  
                                 
                                 
@@ -87,7 +91,7 @@
                 </tfoot>
               
                 <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse | filter:test">
                         <td style="width:400px">{{item.Vrijeme}}</td>
                         <td>{{item.Adresa}}</td>
                          <td>{{item.Skripta}}</td>
