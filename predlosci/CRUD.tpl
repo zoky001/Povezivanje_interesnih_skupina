@@ -215,6 +215,7 @@
      <p>  
                                    <label  style="width: 20%"id = "Lnaziv" for="naziv">Traži:      
                                </label> <input type="text" ng-model="test"></p>
+     
      <div style="overflow: scroll; max-width: 100%">
      <table  style = "margin-left: 0;width:100%" class="tablica1">
                                      <caption class="tablica1">Tablica "korisnici"</caption>

@@ -39,7 +39,12 @@
 
                             </form>
   <br>
- <table ng-show="prikazTablice" style = "margin-left: 0;width:100%" class="tablica1">
+  <div ng-show="prikazTablice" >
+   <p>  
+                                   <label  style="width: 20%"id = "Lnaziv" for="naziv">Traži:      
+                               </label> <input type="text" ng-model="test"></p>
+     
+ <table  style = "margin-left: 0;width:100%" class="tablica1">
                                      <caption class="tablica1">Tablica "korisnici"</caption>
                 <thead class="tablica1">
 
@@ -90,7 +95,7 @@
                 </tfoot>
               
                 <tbody class="tablica1">
-                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                    <tr class="tablica1_redak1" ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse | filter:test">
                       
                         <td>{{item.Akcija}}</td>
                          <td>{{item.Vrijeme}}</td>
@@ -103,7 +108,7 @@
                 </tbody>
             </table>
 
-
+</div>
                       
 
                     </div>

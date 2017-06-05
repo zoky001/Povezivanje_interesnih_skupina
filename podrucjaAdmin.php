@@ -379,7 +379,9 @@ function novoPodrucje(){
 $sql = "INSERT INTO `podrucja_interesa`
 ( `Naziv`, `Opis_podrucja`) 
 VALUES
- (:Naziv, :Opis)
+ (:Naziv, :Opis);
+ 
+
 ";
 
     $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
@@ -410,7 +412,98 @@ VALUES
             
                trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
           
+        }
+        
+        
+        
+        
+        
+        
+        
+        $sql = "SELECT  `ID_podrucja`FROM `podrucja_interesa` 
+WHERE 
+`Naziv` = :naziv
+ 
+";
+
+               $sql1 = "SELECT  `ID_podrucja`FROM `podrucja_interesa` 
+WHERE 
+`Naziv` = :naziv
+ 
+INSERT INTO dizajn ( `podrucja_interesa_ID_podrucja`) VALUES (30)
+";
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+            $stmt->bindParam(':naziv', $_POST['naziv'], PDO::PARAM_STR);
+            
+            
+          
+             
+      
+
+       
+         if ($stmt->execute()) {
+            dnevnik_zapis(33);
+             //nova podrucje
+            
+            $IDpod = $stmt->fetch();
+            
+             $IDpod = $IDpod['ID_podrucja'];
+         } 
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
         } 
+        
+        
+        
+               $sql = "
+INSERT INTO dizajn ( `podrucja_interesa_ID_podrucja`) VALUES (:ID)
+";
+    $vrijeme = date('Y-m-d H:i:s', vrijeme_sustava());
+
+       try{
+            $stmt = $dbc->prepare($sql);
+            $stmt->bindParam(':ID', $IDpod, PDO::PARAM_STR);
+            
+            
+          
+             
+      
+
+       
+         if ($stmt->execute()) {
+            dnevnik_zapis(33);
+             //nova podrucje
+            
+           
+         } 
+            
+             
+           
+
+
+        
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            
+               trigger_error("Problem kod citanja iz baze!" . $e->getMessage(), E_USER_ERROR);
+          
+        } 
+        
+        
+        
+        
         
         
         
